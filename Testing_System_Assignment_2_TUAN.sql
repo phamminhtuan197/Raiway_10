@@ -1,0 +1,112 @@
+DROP DATABASE IF EXISTS testing_system;
+CREATE DATABASE IF NOT EXISTS Testing_system;
+USE Testing_system;
+
+DROP TABLE IF EXISTS Department;
+CREATE TABLE IF NOT EXISTS Department
+(
+	DepartmentID 	INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	DepartmentName 	VARCHAR(50) NOT NULL
+);
+
+DROP TABLE IF EXISTS Position;
+CREATE TABLE IF NOT EXISTS Position
+(
+	PositionID		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    PositionName	VARCHAR(50) NOT NULL
+);
+
+DROP TABLE IF EXISTS `Account`;
+CREATE TABLE IF NOT EXISTS `Account`
+(
+	AccountID		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Email			VARCHAR(50) UNIQUE KEY,
+    Usename			VARCHAR(50) NOT NULL,
+    Fullname		VARCHAR(50) NOT NULL,
+    DepartmentID	INT NOT NULL,
+    FOREIGN KEY (DepartmentID) REFERENCES Department (DepartmentID),
+    PositionID		INT NOT NULL,
+    FOREIGN KEY (PositionID) REFERENCES Position (PositionID),
+    CreateDate		DATE
+);
+
+DROP TABLE IF EXISTS `Group`;
+CREATE TABLE IF NOT EXISTS `Group`
+(
+	GroupID			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    GroupName		VARCHAR(50),
+    CreatorID		INT NOT NULL UNIQUE KEY,
+    FOREIGN KEY (CreatorID) REFERENCES Position (PositionID),
+    CreateDate		DATE
+);
+
+DROP TABLE IF EXISTS GroupAccount;
+CREATE TABLE IF NOT EXISTS GroupAccount
+(
+	GroupID			INT NOT NULL,
+    FOREIGN KEY (GroupID) REFERENCES `Group` (GroupID),
+    AccountID		INT NOT NULL UNIQUE KEY,
+    FOREIGN KEY (AccountID) REFERENCES `Account` (AccountID),
+    JoinDate		DATE
+);
+
+DROP TABLE IF EXISTS TypeQuestion;
+CREATE TABLE IF NOT EXISTS TypeQuestion
+(
+	TypeID			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    TypeName		VARCHAR(50) NOT NULL
+);
+
+DROP TABLE IF EXISTS CategoryQuestion;
+CREATE TABLE IF NOT EXISTS CategoryQuestion
+(
+	CategoryID		INT AUTO_INCREMENT PRIMARY KEY,
+    CategoryName	VARCHAR(50) NOT NULL
+);
+
+DROP TABLE IF EXISTS Question;
+CREATE TABLE IF NOT EXISTS Question
+(
+	QuestionID		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Content			VARCHAR(50) NOT NULL,
+    CategoryID		INT NOT NULL UNIQUE KEY,
+    FOREIGN KEY (CategoryID) REFERENCES CategoryQuestion (CategoryID),
+    TypeID			INT NOT NULL UNIQUE KEY,
+    FOREIGN KEY (TypeID) REFERENCES TypeQuestion (TypeID),
+    CreatorID		INT NOT NULL UNIQUE KEY,
+    FOREIGN KEY (CreatorID) REFERENCES `Group` (CreatorID), 
+    CreateDate		DATE
+);
+
+DROP TABLE IF EXISTS Answer;
+CREATE TABLE IF NOT EXISTS Answer
+(
+	AnswerID		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Content			VARCHAR(50) NOT NULL,
+    QuestionID		INT NOT NULL UNIQUE KEY,
+    FOREIGN KEY (QuestionID) REFERENCES Question (QuestionID),
+    isCorrect		VARCHAR(10)
+);
+
+DROP TABLE IF EXISTS Exam;
+CREATE TABLE IF NOT EXISTS Exam
+(
+	ExamID			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `Code`			VARCHAR(10) NOT NULL,
+    Title			VARCHAR(50),
+    CategoryID		INT NOT NULL UNIQUE KEY,
+    FOREIGN KEY (CategoryID) REFERENCES CategoryQuestion (CategoryID),
+    Duration		TIME,
+    CreatorID		INT NOT NULL UNIQUE KEY,
+    FOREIGN KEY (CreatorID) REFERENCES Position (PositionID),
+    CreateDate		DATE
+);
+
+DROP TABLE IF EXISTS ExamQuestion;
+CREATE TABLE IF NOT EXISTS ExamQuestion
+(
+	ExamID			INT NOT NULL UNIQUE KEY,
+    FOREIGN KEY (ExamID) REFERENCES Exam (ExamID),
+    QuestionID		INT NOT NULL UNIQUE KEY,
+    FOREIGN KEY (QuestionID) REFERENCES Question (QuestionID)
+);
