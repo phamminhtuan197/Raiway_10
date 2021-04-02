@@ -1,0 +1,18 @@
+DROP DATABASE IF EXISTS Fresher;
+CREATE DATABASE IF NOT EXISTS Fresher;
+USE Fresher;
+
+DROP TABLE IF EXISTS Trainee;
+CREATE TABLE IF NOT EXISTS Trainee
+(
+    TraineeID		INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Full_Name		VARCHAR(50) NOT NULL,
+    Birth_Date		DATE,
+    Gender			ENUM('male', 'female', 'unknown'),
+    ET_IQ			INT UNSIGNED CHECK(ET_IQ <=20) NOT NULL,
+    ET_Gmath		INT UNSIGNED CHECK(ET_Gmath <=20) NOT NULL,
+    ET_English		INT UNSIGNED CHECK(ET_English <=50) NOT NULL,
+    Training_Class	VARCHAR(20) NOT NULL,
+    Evaluation_Note	TEXT,
+    VTI_Account		VARCHAR(50) NOT NULL UNIQUE KEY
+);
