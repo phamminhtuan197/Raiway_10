@@ -45,9 +45,10 @@ CREATE TABLE IF NOT EXISTS GroupAccount
 (
 	GroupID			INT UNSIGNED NOT NULL,
     FOREIGN KEY(GroupID) REFERENCES `Group` (GroupID),
-    AccountID		INT UNSIGNED NOT NULL UNIQUE KEY,
+    AccountID		INT UNSIGNED NOT NULL,
     FOREIGN KEY(AccountID) REFERENCES `Account` (AccountID),
-    JoinDate		DATE
+    JoinDate		DATE,
+    PRIMARY KEY(GroupID, AccountID)
 );
 
 DROP TABLE IF EXISTS TypeQuestion;
