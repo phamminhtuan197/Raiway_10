@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `Group`
     GroupName		VARCHAR(50),
     CreatorID		INT UNSIGNED NOT NULL,
     FOREIGN KEY(CreatorID) REFERENCES Position (PositionID),
-    CreateDate		DATE
+    CreateDate		DATETIME DEFAULT NOW()
 );
 
 DROP TABLE IF EXISTS GroupAccount;
