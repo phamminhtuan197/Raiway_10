@@ -69,12 +69,8 @@ CREATE TABLE IF NOT EXISTS `Group`
 	GroupID			INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     GroupName		VARCHAR(50) UNIQUE,
     CreatorID		INT UNSIGNED NOT NULL,
-<<<<<<< HEAD
-    CreateDate		DATE
-=======
-    FOREIGN KEY(CreatorID) REFERENCES Position (PositionID),
-    CreateDate		DATETIME DEFAULT NOW()
->>>>>>> fd8f2b471fd880ee5d9f51cd27804c65088cd2f8
+    CreateDate		DATE,
+    FOREIGN KEY(CreatorID) REFERENCES Position (PositionID)
 );
 INSERT INTO `Group` (GroupName, CreatorID, CreateDate) VALUES
 ("Goup_1", 10, "2021/04/01"),
