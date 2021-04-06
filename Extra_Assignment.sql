@@ -29,6 +29,7 @@ INSERT INTO Trainee (Full_Name, Birth_Date, Gender, ET_IQ, ET_Gmath, ET_English,
 ('Ngô Hồng Dũng','2009/10/07', 'male', 19, 5, 38, '6', 'Đang học', 'ngohungdung'),
 ('Đàm Quang Duy','2008/02/28', 'male', 3, 6, 13, '7', 'Đang học', 'damquanghuy');
 ##cau 2
+
 SELECT 
     MONTH(Birth_Date) AS 'Thang sinh',
     GROUP_CONCAT(Full_Name) AS 'Ten'
@@ -36,17 +37,18 @@ FROM
     Trainee
 GROUP BY MONTH(Birth_Date)
 ORDER BY MONTH(Birth_Date);
+
 ##cau 3
+
 SELECT 
     *
 FROM
     Trainee
 WHERE
-    LENGTH(Full_Name) = (SELECT 
-            MAX(LENGTH(Full_Name))
-        FROM
-            Trainee);
+    LENGTH(Full_Name) = (SELECT MAX(LENGTH(Full_Name)) FROM Trainee);
+            
 ##cau 4
+
 SELECT 
     Full_Name,
     Birth_Date,
@@ -62,8 +64,13 @@ FROM
 WHERE
     (ET_IQ + ET_Gmath) >= 20 AND ET_IQ >= 8
         AND ET_Gmath >= 8
-        AND ET_English >= 18;
+        AND ET_English >= 18
+ORDER BY Full_Name;
+        
 ##cau 5
+
 DELETE FROM Trainee WHERE TraineeID= 3;
+
 ##cau 6
+
 UPDATE Trainee SET Training_Class=2 WHERE TraineeID=5;
