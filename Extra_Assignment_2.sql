@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS DeTai
 	madt		INT,
     tendt		CHAR(100),
     kinhphi		INT,
-    NoiThucTap	CHAR(30)
+    noithuctap	CHAR(30)
 );
  DROP TABLE IF EXISTS HuongDan;
  CREATE TABLE IF NOT EXISTS HuongDan
@@ -79,12 +79,12 @@ INSERT INTO SinhVien (masv, hotensv, makhoa, namsinh, quequan) VALUES
 (3488, 'Bùi Ngân Hà', 'K_3', 1997, 'Hà Nam'),
 (1219, 'Trần Phương Anh', 'K_7', 1995, 'Hà Nội'),
 (8470, 'Kiều Thị Uyên Linh', 'K_10', 1995, 'Hải Dương'),
-(7591, 'Nguyễn Diệu Linh', 'K_3', 1996, 'Hải Phòng'),
-(8402, 'Đặng Minh Đăng', 'K_5', 1996, 'Hưng Yên'),
+(7591, 'Nguyễn Diệu Linh', 'K_3', 1996, 'Hà Nội'),
+(8402, 'Đặng Minh Đăng', 'K_5', 1996, 'Hà Nội'),
 (2272, 'Nguyễn Thùy Linh', 'K_7', 1995, 'Thái Bình'),
-(8730, 'Trần Minh Đức', 'K_1', 1998, 'Hà Nội');
+(8730, 'Trần Minh Đức', 'K_1', 1998, 'Hải Phòng');
 
-INSERT INTO DeTai (madt, tendt, kinhphi, NoiThucTap) VALUES
+INSERT INTO DeTai (madt, tendt, kinhphi, noithuctap) VALUES
 ('71178', 'DẠY HỌC TÍCH HỢP CÔNG NGHỆ THÔNG TIN Ở TRƯỜNG THPT', 800000, 'Hải Dương'),
 ('56472', 'VẤN ĐỀ LÀM VIỆC NHÓM CỦA HỌC SINH THPT', 400000, 'Ninh Bình'),
 ('60356', 'E LEARNING, CƠ HỘI VÀ THÁCH THỨC TRONG BỐI CẢNH HIỆN NAY', 500000, 'Nam Định'),
@@ -110,116 +110,115 @@ INSERT INTO HuongDan (masv, madt, magv, ketqua) VALUES
 
 ##Câu 2
 SELECT 
-    g.magv, g.hotengv, k.tenkhoa, k.makhoa
+    magv, hotengv, tenkhoa
 FROM
-    giangvien g
+    giangvien
         JOIN
-    khoa k ON g.makhoa = k.makhoa
+    khoa USING (makhoa)
 ORDER BY tenkhoa;
 
 ##Câu 3
 SELECT 
-    g.magv, g.hotengv, k.tenkhoa
+    magv, hotengv, tenkhoa
 FROM
-    giangvien g
+    giangvien
         JOIN
-    khoa k ON g.makhoa = k.makhoa
+    khoa USING (makhoa)
 WHERE
     tenkhoa IN ('DIA LY' , 'QLTN');
 
 ##Câu 4
 SELECT 
-    k.makhoa, k.tenkhoa, COUNT(masv) AS 'Số sinh viên'
+    tenkhoa, COUNT(masv) AS 'Số sinh viên'
 FROM
-    khoa k
+    khoa
         JOIN
-    sinhvien s ON k.makhoa = s.makhoa
+    sinhvien USING (makhoa)
 WHERE
     tenkhoa = 'CONG NGHE SINH HOC';
 
 ##Câu 5
 SELECT 
-    s.masv, s.hotensv, (YEAR(NOW()) - namsinh) AS 'Tuổi'
+    masv, hotensv, (YEAR(NOW()) - namsinh) AS 'Tuổi'
 FROM
-    sinhvien s
+    sinhvien
         JOIN
-    khoa k ON s.makhoa = k.makhoa
+    khoa USING (makhoa)
 WHERE
     tenkhoa = 'TOAN';
 
 ##Câu 6
 SELECT 
-    k.makhoa, k.tenkhoa, COUNT(masv) AS 'Số sinh viên'
+    tenkhoa, COUNT(magv) AS 'Số giảng viên'
 FROM
-    khoa k
+    khoa
         JOIN
-    sinhvien s ON k.makhoa = s.makhoa
+    giangvien USING (makhoa)
 WHERE
-    tenkhoa = 'TOAN';
+    tenkhoa = 'CONG NGHE SINH HOC';
     
 ##Câu 7
 SELECT 
-    s.masv, s.hotensv, s.makhoa, s.namsinh, s.quequan
+    masv, hotensv, makhoa, namsinh, quequan
 FROM
-    sinhvien s
+    sinhvien
         LEFT JOIN
-    huongdan h ON s.masv = h.masv
+    huongdan USING (masv)
 WHERE
     madt IS NULL;
 
 ##Câu 8
 SELECT 
-    k.makhoa, k.tenkhoa, COUNT(magv) AS 'Số giảng viên'
+    makhoa, tenkhoa, COUNT(magv) AS 'Số giảng viên'
 FROM
-    khoa k
+    khoa
         LEFT JOIN
-    giangvien g ON k.makhoa = g.makhoa
-GROUP BY makhoa
-ORDER BY makhoa;
+    giangvien USING (makhoa)
+GROUP BY makhoa;
 
 ##Câu 9
 SELECT 
-    k.tenkhoa, k.dienthoai
+    tenkhoa, dienthoai
 FROM
-    khoa k
+    khoa
         JOIN
-    sinhvien s ON k.makhoa = s.makhoa
+    sinhvien USING (makhoa)
 WHERE
     hotensv = 'Lê Văn Sơn';
 
 ##Câu 10
 SELECT 
-    d.madt, d.tendt
+    madt, tendt
 FROM
-    huongdan h
+    huongdan
         JOIN
-    detai d ON h.madt = d.madt
+    detai USING (madt)
         JOIN
-    giangvien g ON h.magv = g.magv
+    giangvien USING (magv)
 WHERE
     hotengv = 'Trần Sơn';
 
 ##Câu 11
 SELECT 
-    d.tendt, d.madt
+    tendt, madt
 FROM
-    detai d
+    detai
         LEFT JOIN
-    huongdan h ON h.madt = d.madt
+    huongdan USING (madt)
 WHERE
-    h.masv IS NULL;
+    masv IS NULL;
     
 ##Câu 12
 SELECT 
-    h.magv, g.hotengv, k.tenkhoa
+    magv, hotengv, tenkhoa
 FROM
-    giangvien g
+    giangvien
         JOIN
-    huongdan h ON h.magv = g.magv
+    huongdan USING (magv)
         JOIN
-    khoa k ON k.makhoa = g.makhoa
-GROUP BY h.magv
-HAVING COUNT(h.madt) >= 3;
+    khoa USING (makhoa)
+GROUP BY magv
+HAVING COUNT(madt) >= 3;
 
 ##Câu 13
 SELECT 
@@ -230,4 +229,66 @@ WHERE
 	kinhphi=(SELECT MAX(kinhphi) FROM detai);
 
 ##Câu 14
-SELECT madt FROM huongdan WHERE madt=(SELECT COUNT(madt) >2 FROM huongdan);
+SELECT 
+    madt, tendt
+FROM
+    huongdan
+        JOIN
+    detai USING (madt)
+GROUP BY madt
+HAVING COUNT(masv) > 2;
+
+##Câu 15
+SELECT 
+    makhoa, tenkhoa, masv, hotensv, ketqua
+FROM
+    sinhvien
+        JOIN
+    huongdan USING (masv)
+        RIGHT JOIN
+    khoa USING (makhoa)
+WHERE
+    tenkhoa IN ('DIA LY' , 'QLTN');
+
+##Câu 16
+SELECT 
+    tenkhoa, COUNT(masv) AS 'Số sinh viên'
+FROM
+    sinhvien
+        RIGHT JOIN
+    khoa USING (makhoa)
+GROUP BY makhoa;
+
+##Câu 17
+SELECT 
+    *
+FROM
+    sinhvien
+        LEFT JOIN
+    khoa USING (makhoa)
+        LEFT JOIN
+    huongdan USING (masv)
+        LEFT JOIN
+    detai USING (madt)
+WHERE
+    quequan = noithuctap;
+    
+##Câu 18
+SELECT 
+    *
+FROM
+    sinhvien
+        JOIN
+    huongdan USING (masv)
+WHERE
+    ketqua IS NULL;
+    
+##Câu 19
+SELECT 
+    masv, hotensv
+FROM
+    sinhvien
+        JOIN
+    huongdan USING (masv)
+WHERE
+    ketqua = 0;
