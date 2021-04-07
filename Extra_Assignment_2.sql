@@ -103,7 +103,7 @@ INSERT INTO HuongDan (masv, madt, magv, ketqua) VALUES
 (1316, 45040, 970, 8.5),
 (9035, 44476, 896, 7.5),
 (9707, 44476, 970, 6),
-(8470, 67521, 202, 2),
+(8470, 44476, 202, 2),
 (7838, 45040, 471, 0),
 (8402, 89531, 935, 4),
 (3488, 73322, 471, 8.5);
@@ -176,3 +176,58 @@ FROM
     giangvien g ON k.makhoa = g.makhoa
 GROUP BY makhoa
 ORDER BY makhoa;
+
+##Câu 9
+SELECT 
+    k.tenkhoa, k.dienthoai
+FROM
+    khoa k
+        JOIN
+    sinhvien s ON k.makhoa = s.makhoa
+WHERE
+    hotensv = 'Lê Văn Sơn';
+
+##Câu 10
+SELECT 
+    d.madt, d.tendt
+FROM
+    huongdan h
+        JOIN
+    detai d ON h.madt = d.madt
+        JOIN
+    giangvien g ON h.magv = g.magv
+WHERE
+    hotengv = 'Trần Sơn';
+
+##Câu 11
+SELECT 
+    d.tendt, d.madt
+FROM
+    detai d
+        LEFT JOIN
+    huongdan h ON h.madt = d.madt
+WHERE
+    h.masv IS NULL;
+    
+##Câu 12
+SELECT 
+    h.magv, g.hotengv, k.tenkhoa
+FROM
+    giangvien g
+        JOIN
+    huongdan h ON h.magv = g.magv
+        JOIN
+    khoa k ON k.makhoa = g.makhoa
+GROUP BY h.magv
+HAVING COUNT(h.madt) >= 3;
+
+##Câu 13
+SELECT 
+	madt, tendt 
+FROM 
+	detai 
+WHERE 
+	kinhphi=(SELECT MAX(kinhphi) FROM detai);
+
+##Câu 14
+SELECT madt FROM huongdan WHERE madt=(SELECT COUNT(madt) >2 FROM huongdan);
