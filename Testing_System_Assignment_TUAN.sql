@@ -1,259 +1,289 @@
 DROP DATABASE IF EXISTS testing_system;
-CREATE DATABASE IF NOT EXISTS Testing_system;
-USE Testing_system;
+CREATE DATABASE IF NOT EXISTS testing_system;
+USE testing_system;
 
-DROP TABLE IF EXISTS Department;
-CREATE TABLE IF NOT EXISTS Department
+DROP TABLE IF EXISTS department;
+CREATE TABLE IF NOT EXISTS department
 (
-	DepartmentID 	INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	DepartmentName 	VARCHAR(50) NOT NULL UNIQUE
+	departmentID 	INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	departmentname 	VARCHAR(50) NOT NULL UNIQUE
 );
-INSERT INTO Department (DepartmentName) VALUES 
-('Marketing_1'),
-('Marketing_2'),
-('Marketing_3'),
-('Marketing_4'),
-('Marketing_5'),
-('Marketing_6'),
-('Marketing_7'),
-('Marketing_8'),
+INSERT INTO department (departmentname) VALUES 
+('marketing'),
+('kế toán'),
+('kho'),
+('nhân sự'),
+('bảo vệ'),
+('hành chính'),
+('kế hoạch'),
+('test'),
 ('Sale'),
 ('Dev');
 
-DROP TABLE IF EXISTS Position;
-CREATE TABLE IF NOT EXISTS Position
+DROP TABLE IF EXISTS position;
+CREATE TABLE IF NOT EXISTS position
 (
-	PositionID		INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    PositionName	ENUM('DEV', 'TEST', 'SCUM MASTER', 'PM')
+	positionID		INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    positionname	ENUM('DEV', 'TEST', 'SCUM MASTER', 'PM')
 );
-INSERT INTO Position (PositionName) VALUES
+INSERT INTO position (positionname) VALUES
 ("DEV"),
-("DEV"),
-("DEV"),
+("TEST"),
 ("SCUM MASTER"),
-("SCUM MASTER"),
-("TEST"),
-("TEST"),
-("TEST"),
-("PM"),
 ("PM");
 
-DROP TABLE IF EXISTS `Account`;
-CREATE TABLE IF NOT EXISTS `Account`
+DROP TABLE IF EXISTS `account`;
+CREATE TABLE IF NOT EXISTS `account`
 (
-	AccountID		INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    Email			VARCHAR(50) UNIQUE KEY,
-    Usename			VARCHAR(50) UNIQUE KEY,
-    Fullname		VARCHAR(50) NOT NULL,
-    DepartmentID	INT UNSIGNED NOT NULL,
-    FOREIGN KEY(DepartmentID) REFERENCES Department (DepartmentID),
-    PositionID		INT UNSIGNED NOT NULL,
-    FOREIGN KEY(PositionID) REFERENCES Position (PositionID),
-    CreateDate		DATETIME DEFAULT NOW()
+	accountID		INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    email			VARCHAR(50) UNIQUE,
+    username		VARCHAR(50) NOT NULL UNIQUE,
+    fullname		VARCHAR(50) NOT NULL,
+    departmentID	INT UNSIGNED NOT NULL,
+    positionID		INT UNSIGNED NOT NULL,
+    createdate		DATE
 );
-INSERT INTO `Account` (Email, Usename, Fullname, DepartmentID, PositionID) VALUES
-("phavana@gmail.com", "phamvana", "Pham Van A", 1, 1),
-("phavana1@gmail.com", "phamvana1", "Pham Van ABasdasdC", 1, 1),
-("phavana2@gmail.com", "phamvana2", "Pham Van A", 1, 1),
-("phavanb@gmail.com", "phamvanb", "Dam Van Mo", 2, 2), 
-("phavanb1@gmail.com", "phamvanb1", "Pham Van B", 2, 2), 
-("phavanb2@gmail.com", "phamvanb2", "Pham Van B", 2, 2), 
-("phavanc@gmail.com", "phamvanac", "Pham Van c", 3, 3),
-("phavanc1@gmail.com", "phamvanac1", "Pham Van cde", 3, 3),
-("phavanc3@gmail.com", "phamvanac3", "Pham Van cdav", 3, 3),
-("phavanc2@gmail.com", "phamvanac2", "Pham Van c", 3, 3);
+INSERT INTO `account` (email, username, fullname, departmentID, positionID, createdate) VALUES
+('phamthilananh@gmail.com', 'phamthilananh', "Phạm Thị Lan Anh", 2, 3, '2012/03/12'),
+('hoangnguyetanh@gmail.com', 'hoangnguyetanh', "Hoàng Nguyệt Ánh", 9, 1, '2013/12/12'),
+('nguyenminhbach@gmail.com', 'nguyenminhbach', "Nguyễn Minh Bách", 3, 3, '2013/09/04'),
+('nguyenkhanhchi@gmail.com', 'nguyenkhanhchi', "Nguyễn Khánh Chi", 7, 1, '2014/06/08'), 
+('ngohungdung@gmail.com', 'ngohungdung', "Ngô Hồng Dũng", 2, 2, '2014/10/12'), 
+('nguyenminhduc@gmail.com', 'nguyenminhduc', "Nguyễn Minh Đức", 5, 3, '2015/10/31'), 
+('dangquynhgiao@gmail.com', 'dangquynhgiao', "Đặng Quỳnh Giao", 9, 2, '2015/07/26'),
+('vuduckhanh@gmail.com', 'vuduckhanh', "Vũ Đức Khánh", 10, 2, '2015/10/31'),
+('nguyenminhkien@gmail.com', 'nguyenminhkien', "Nguyễn Minh Kiên", 2, 1, '2017/04/06'),
+('lebaolinh@gmail.com', 'lebaolinh', "Lê Bảo Linh", 2, 2, '2019/11/01'),
+('phamyenlinh@gmail.com', 'phamyenlinh', 'Phạm Yến Linh', 1, 4, '2020/10/05'),
+('thaihalinh@gmail.com', 'thaihalinh', 'Thái Hà Linh', 4, 3, '2020/11/23'),
+('vitranbaolong@gmail.com', 'vitranbaolong', 'Vi Trần Bảo Long', 6, 1, '2019/12/20'),
+('lelyly@gmail.com', 'lelyly', 'Lê Ly Ly', 8, 3, '2021/01/13');
 
-DROP TABLE IF EXISTS `Group`;
-CREATE TABLE IF NOT EXISTS `Group`
+DROP TABLE IF EXISTS `group`;
+CREATE TABLE IF NOT EXISTS `group`
 (
-	GroupID			INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    GroupName		VARCHAR(50) UNIQUE,
-    CreatorID		INT UNSIGNED NOT NULL,
-    CreateDate		DATE,
-    FOREIGN KEY(CreatorID) REFERENCES Position (PositionID)
+	groupID			INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    groupname		VARCHAR(50) UNIQUE,
+    creatorID		INT UNSIGNED NOT NULL,
+    createdate		DATE
 );
-INSERT INTO `Group` (GroupName, CreatorID, CreateDate) VALUES
-("Goup_1", 10, "2021/04/01"),
-("Goup_2", 1, "2019/04/01"),
-("Goup_3", 2, "2021/04/01"),
-("Goup_4", 3, "2021/04/01"),
-("Goup_5", 4, "2021/04/01"),
-("Goup_6", 5, "2021/04/01"),
-("Goup_7", 6, "2021/04/01"),
-("Goup_8", 7, "2021/04/04"),
-("Goup_9", 8, "2021/04/02"),
-("Goup_10", 9, "2021/04/03");
+INSERT INTO `group` (groupname, creatorID, createdate) VALUES
+("Group_1", 8, '2013/05/24'),
+("Group_2", 3, '2013/06/28'),
+("Group_3", 10, '2013/07/23'),
+("Group_4", 6, '2014/06/01'),
+("Group_5", 2, '2015/02/18'),
+("Group_6", 3, '2016/09/22'),
+("Group_7", 1, '2015/09/06'),
+("Group_8", 3, '2018/02/04'),
+("Group_9", 5, '2019/04/08'),
+("Group_10", 4, '2019/07/25');
 
-CREATE TABLE IF NOT EXISTS GroupAccount
+CREATE TABLE IF NOT EXISTS groupaccount
 (
-	GroupID			INT UNSIGNED NOT NULL,
-    FOREIGN KEY(GroupID) REFERENCES `Group` (GroupID),
-    AccountID		INT UNSIGNED NOT NULL UNIQUE,
-    FOREIGN KEY(AccountID) REFERENCES `Account` (AccountID),
-    JoinDate		DATE,
+	groupID			INT UNSIGNED NOT NULL,
+    accountID		INT UNSIGNED NOT NULL UNIQUE,
+    joindate		DATE,
     PRIMARY KEY(GroupID, AccountID)
 );
-INSERT INTO GroupAccount (GroupID, AccountID, JoinDate) VALUES
-(1, 10, "2021/04/01"),
-(2, 9, "2021/04/02"),
-(3, 8, "2021/04/03"),
-(4, 7, "2021/04/03"),
-(5, 6, "2021/04/03"),
-(6, 5, "2021/04/03"),
-(7, 4, "2021/04/03"),
-(8, 3, "2021/04/03"),
-(9, 2, "2021/04/03"),
-(10, 1, "2021/04/03");
+INSERT INTO groupaccount (groupID, accountID, joindate) VALUES
+(1, 7, '2021/04/01'),
+(3, 3, '2021/04/02'),
+(4, 2, '2021/02/16'),
+(8, 1, '2020/05/18'),
+(6, 12, '2018/12/27'),
+(2, 14, '2017/04/26'),
+(7, 13, '2016/12/08'),
+(9, 10, '2016/11/15'),
+(5, 11, '2016/08/16'),
+(10, 4, '2021/04/03');
 
-DROP TABLE IF EXISTS TypeQuestion;
-CREATE TABLE IF NOT EXISTS TypeQuestion
+DROP TABLE IF EXISTS typequestion;
+CREATE TABLE IF NOT EXISTS typequestion
 (
-	TypeID			INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    TypeName		ENUM('Essay', 'Multiple-Choice')
+	typeID			INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    typename		ENUM('Essay', 'Multiple-Choice')
 );
-INSERT INTO TypeQuestion (TypeName) VALUES
+INSERT INTO typequestion (typename) VALUES
 ("Essay"),
-("Essay"),
-("Essay"),
-("Multiple-Choice"),
-("Multiple-Choice"),
-("Multiple-Choice"),
-("Essay"),
-("Essay"),
-("Essay"),
-("Essay");
+("Multiple-Choice");
 
-DROP TABLE IF EXISTS CategoryQuestion;
-CREATE TABLE IF NOT EXISTS CategoryQuestion
+DROP TABLE IF EXISTS categoryquestion;
+CREATE TABLE IF NOT EXISTS categoryquestion
 (
-	CategoryID		INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    CategoryName	ENUM('Java','.NET','SQL','Postman','Ruby')
+	categoryID		INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    categoryname	ENUM('Java','.NET','SQL','Postman','Ruby')
 );
-INSERT INTO CategoryQuestion (CategoryName) VALUES
+INSERT INTO categoryquestion (categoryname) VALUES
 ('Java'),
-('Java'),
-('Java'),
-('Java'),
-('.NET'),
-('.NET'),
 ('.NET'),
 ('SQL'),
 ('Postman'),
 ('Ruby');
 
-DROP TABLE IF EXISTS Question;
-CREATE TABLE IF NOT EXISTS Question
+DROP TABLE IF EXISTS question;
+CREATE TABLE IF NOT EXISTS question
 (
-	QuestionID		INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    Content			VARCHAR(50) NOT NULL,
-    CategoryID		INT UNSIGNED NOT NULL,
-    FOREIGN KEY(CategoryID) REFERENCES CategoryQuestion (CategoryID),
-    TypeID			INT UNSIGNED NOT NULL,
-    FOREIGN KEY(TypeID) REFERENCES TypeQuestion (TypeID),
-    CreatorID		INT UNSIGNED NOT NULL,
-    CreateDate		DATE
+	questionID		INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    content			VARCHAR(50) NOT NULL,
+    categoryID		INT UNSIGNED NOT NULL,
+    typeID			INT UNSIGNED NOT NULL,
+    creatorID		INT UNSIGNED NOT NULL,
+    createdate		DATE
 );
-INSERT INTO Question (Content, CategoryID, TypeID, CreatorID, CreateDate) VALUES
-('abc', 1, 9, 10, '2021/04/01'),
-('abc', 2, 9, 2, '2021/04/01'),
-('abc', 3, 8, 1, '2021/04/01'),
-('abc', 4, 7, 4, '2021/04/01'),
-('câu hỏi số 4', 5, 6, 3, '2021/04/01'),
-('abc', 6, 5, 6, '2021/04/01'),
-('abc', 7, 4, 5, '2021/04/01'),
-('abc', 8, 1, 4, '2021/04/01'),
-('def', 9, 2, 2, '2021/04/02'),
-('mnp', 10, 3, 3, '2021/04/03');
+INSERT INTO question (content, categoryID, typeID, creatorID, createdate) VALUES
+('câu hỏi số 1', 4, 1, 2, '2014/02/10'),
+('câu hỏi số 2', 5, 2, 10, '2014/04/14'),
+('câu hỏi số 3', 3, 1, 6, '2015/03/07'),
+('câu hỏi số 4', 4, 2, 8, '2016/02/10'),
+('câu hỏi số 5', 1, 2, 4, '2016/11/25'),
+('câu hỏi số 6', 3, 2, 7, '2018/05/10'),
+('câu hỏi số 7', 5, 1, 3, '2019/04/03'),
+('câu hỏi số 8', 3, 2, 9, '2018/10/01'),
+('câu hỏi số 9', 5, 2, 1, '2021/02/19'),
+('câu hỏi số 10', 2, 2, 5, '2021/03/17');
 
-DROP TABLE IF EXISTS Answer;
-CREATE TABLE IF NOT EXISTS Answer
+DROP TABLE IF EXISTS answer;
+CREATE TABLE IF NOT EXISTS answer
 (
-	AnswerID		INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    Content			VARCHAR(50) NOT NULL,
-    QuestionID		INT UNSIGNED,
-    isCorrect		ENUM('True','False')
+	answerID		INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    content			VARCHAR(50) NOT NULL,
+    questionID		INT UNSIGNED,
+    iscorrect		ENUM('True','False')
 );
-INSERT INTO Answer (Content, QuestionID, isCorrect) VALUES
-('abc', 1, 'True'),
-('abc1', 2, 'True'),
-('abc2', 2, 'True'),
-('abc3', 2, 'True'),
-('abc4', 2, 'True'),
-('abc5', 2, 'True'),
-('abc6', 7, 'True'),
-('abc7', 8, 'True'),
-('bcd', 9, 'False'),
-('abc9', 10, 'True');
+INSERT INTO answer (content, questionID, iscorrect) VALUES
+('trả lời câu hỏi số 1', 1, 'True'),
+('trả lời câu hỏi số 2', 1, 'False'),
+('trả lời câu hỏi số 3', 1, 'True'),
+('trả lời câu hỏi số 4', 1, 'False'),
+('trả lời câu hỏi số 5', 5, 'True'),
+('trả lời câu hỏi số 6', 6, 'False'),
+('trả lời câu hỏi số 7', 7, 'True'),
+('trả lời câu hỏi số 8', 8, 'False'),
+('trả lời câu hỏi số 9', 9, 'True'),
+('trả lời câu hỏi số 10', 10, 'False');
 
-DROP TABLE IF EXISTS Exam;
-CREATE TABLE IF NOT EXISTS Exam
+DROP TABLE IF EXISTS exam;
+CREATE TABLE IF NOT EXISTS exam
 (
-	ExamID			INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    `Code`			VARCHAR(10) NOT NULL,
-    Title			VARCHAR(50),
-    CategoryID		INT UNSIGNED NOT NULL,
-    FOREIGN KEY(CategoryID) REFERENCES CategoryQuestion (CategoryID),
-    Duration		TIME,
-    CreatorID		INT UNSIGNED NOT NULL,
-    CreateDate		DATE
+	examID			INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    `code`			VARCHAR(10) NOT NULL,
+    title			VARCHAR(50),
+    categoryID		INT UNSIGNED NOT NULL,
+    duration		INT UNSIGNED,
+    creatorID		INT UNSIGNED NOT NULL,
+    createdate		DATE
 );
-ALTER TABLE Exam
-CHANGE COLUMN Duration Duration INT UNSIGNED;
-INSERT INTO Exam (`Code`, Title, CategoryID, Duration, CreatorID, CreateDate) VALUES
-('abc', 'aaa', 1, '90', 1, '2021/04/01'),
-('abc', 'aaa', 2, '90', 1, '2020/04/01'),
-('abc', 'aaa', 3, '90', 1, '2021/04/02'),
-('abc', 'aaa', 4, '90', 1, '2021/04/03'),
-('abc', 'aaa', 5, '90', 1, '2019/04/01'),
-('abc', 'aaa', 6, '90', 1, '2019/12/01'),
-('abc', 'aaa', 7, '90', 1, '2021/04/01'),
-('abc', 'aaa', 8, '90', 1, '2021/04/01'),
-('qwe', 'bbb', 9, '90', 2, '2021/04/01'),
-('fgh', 'ccc', 10, '90', 3, '2021/04/01');
 
-DROP TABLE IF EXISTS ExamQuestion;
-CREATE TABLE IF NOT EXISTS ExamQuestion
+INSERT INTO exam (`code`, title, categoryID, duration, creatorID, createdate) VALUES
+('N9TT', 'bài kiểm tra số 1', 4, 90, 4, '2021/03/18'),
+('9G0A', 'bài kiểm tra số 2', 1, 15, 5, '2020/12/02'),
+('B7FQ', 'bài kiểm tra số 3', 2, 60, 6, '2020/02/23'),
+('RANC', 'câu hỏi bài kiểm tra số 4', 4, 30, 2, '2019/08/07'),
+('QK6A', 'bài kiểm tra số 5', 3, 120, 3, '2019/04/01'),
+('JI6S', 'bài kiểm tra số 6', 1, 120, 6, '2019/12/01'),
+('7ETR', 'bài kiểm tra số 7', 3, 60, 2, '2021/04/01'),
+('0A6C', 'câu hỏi bài kiểm tra số 8', 2, 15, 1, '2018/10/01'),
+('SXFP', 'bài kiểm tra số 9', 5, 90, 5, '2016/07/04'),
+('ONI6', 'bài kiểm tra số 10', 5, 60, 3, '2016/03/08');
+
+DROP TABLE IF EXISTS examquestion;
+CREATE TABLE IF NOT EXISTS examquestion
 (
-	ExamID			INT UNSIGNED NOT NULL UNIQUE,
-    QuestionID		INT UNSIGNED NOT NULL UNIQUE
+	examID			INT UNSIGNED NOT NULL UNIQUE,
+    questionID		INT UNSIGNED NOT NULL 
 );
-INSERT INTO ExamQuestion (ExamID, QuestionID) VALUES
-(1, 10),
-(2, 9),
-(3, 8),
-(4, 7),
-(5, 6),
-(6, 5),
-(7, 4),
-(8, 3),
-(9, 2),
-(10, 1);
+INSERT INTO examquestion (examID, questionID) VALUES
+(7, 7),
+(5, 7),
+(3, 3),
+(6, 6),
+(8, 8),
+(10, 10),
+(1, 7),
+(9, 9),
+(2, 2),
+(4, 4);
 
 ##Câu 2
-SELECT * FROM Department;
+SELECT * FROM department;
 ##Câu 3
-SELECT DepartmentID FROM Department WHERE DepartmentName='Sale';
+SELECT departmentID FROM department WHERE departmentname='Sale';
 ##Câu 4
-SELECT * FROM `Account` WHERE LENGTH(Fullname) = (SELECT MAX(LENGTH(Fullname)) FROM `Account`);
+SELECT * FROM `account` WHERE LENGTH(fullname) = (SELECT MAX(LENGTH(fullname)) FROM `account`);
 ##Câu 5
-SELECT * FROM `Account` WHERE LENGTH(Fullname) = (SELECT MAX(LENGTH(Fullname)) FROM `Account` WHERE DepartmentID=3);
+SELECT * FROM `account` WHERE LENGTH(fullname) = (SELECT MAX(LENGTH(fullname)) FROM `account` WHERE departmentID=3);
 ##Câu 6
-SELECT GroupName FROM `Group` WHERE CreateDate < '2019/12/20';
+SELECT groupname FROM `group` WHERE createdate < '2019/12/20';
 ##Câu 7
-SELECT QuestionID FROM Answer GROUP BY QuestionID HAVING COUNT(QuestionID)>=4;
+SELECT questionID FROM answer GROUP BY questionID HAVING COUNT(questionID)>=4;
 ##Câu 8
-SELECT ExamID FROM Exam WHERE Duration >=60 AND CreateDate < '2019/12/20';
+SELECT examID FROM exam WHERE duration >=60 AND createdate < '2019/12/20';
 ##Câu 9
-SELECT * FROM `Group` ORDER BY CreateDate DESC LIMIT 5;
+SELECT * FROM `group` ORDER BY createdate DESC LIMIT 5;
 ##Câu 10
-SELECT COUNT(AccountID) AS 'So nhan vien' FROM `Account` WHERE DepartmentID=2;
+SELECT COUNT(accountID) AS 'Số nhân viên' FROM `account` WHERE departmentID=2;
 ##Câu 11
-SELECT Fullname FROM `Account` WHERE Fullname LIKE 'D%o';
+SELECT fullname FROM `account` WHERE fullname LIKE 'D%o';
 ##Câu 12
-DELETE FROM Exam WHERE CreateDate < '2019/12/20';
+DELETE FROM exam WHERE createdate < '2019/12/20';
 ##Câu 13
-DELETE FROM Question WHERE Content LIKE 'Câu hỏi%';
+DELETE FROM question WHERE content LIKE 'Câu hỏi%';
 ##Câu 14
-UPDATE `Account` SET Fullname= 'Nguyễn Bá Lộc', Email= 'loc.nguyenba@vti.com.vn' WHERE AccountID=5;
+UPDATE `account` SET fullname= 'Nguyễn Bá Lộc', email= 'loc.nguyenba@vti.com.vn' WHERE accountID=5;
 ##Câu 15
-UPDATE `GroupAccount` SET GroupID=4 WHERE AccountID=5;
+UPDATE `groupaccount` SET groupID=4 WHERE accountID=5;
+
+######################### TESTING SYSTEM 4 ##################################
+##Câu 1
+SELECT 
+    fullname, departmentID, departmentname
+FROM
+    `account`
+        LEFT JOIN
+    department USING (departmentID);
+    
+##Câu 2
+SELECT 
+    *
+FROM
+    `account`
+        RIGHT JOIN
+    position USING (positionID)
+        RIGHT JOIN
+    department USING (departmentID);
+    
+##Câu 3
+SELECT 
+    fullname
+FROM
+    `account`
+        JOIN
+    position USING (positionID)
+WHERE
+    positionname = 'DEV';
+    
+##Câu 4
+SELECT 
+    departmentID, departmentname
+FROM
+    department
+        LEFT JOIN
+    `account` USING (departmentID)
+GROUP BY departmentID
+HAVING COUNT(accountID) > 3;
+
+##Câu 5
+SELECT questionID, content, COUNT(questionID) a FROM question LEFT JOIN examquestion USING(questionID) GROUP BY questionID;
+##Câu 7
+##Câu 7
+##Câu 9
+##Câu 10
+##Câu 11
+##Câu 12
+##Câu 13
+##Câu 14
+##Câu 15
+##Câu 16
+##Câu 17
+##Câu 18
