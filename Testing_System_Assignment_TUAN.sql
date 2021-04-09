@@ -439,7 +439,7 @@ FROM
 		JOIN question q USING(typeID) 
 GROUP BY t.typeID; 
 
-##Câu 14
+##Câu 14 15
 SELECT 
     groupID, groupname
 FROM
