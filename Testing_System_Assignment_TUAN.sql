@@ -534,3 +534,71 @@ FROM
     groupaccount USING (groupID)
 GROUP BY groupID
 HAVING COUNT(accountID) < 7) AS bang2;
+
+################################################ TESTING SYSTEM 5 ###############################################################
+##Câu 1
+CREATE VIEW danh_sach_nhan_vien_sale AS
+	SELECT 
+		a.fullname, d.departmentname
+	FROM
+		`account` a
+			INNER JOIN
+		department d USING (departmentID)
+	WHERE
+		departmentname = 'Sale';
+
+##Câu 2
+CREATE VIEW account_tham_gia_nhieu_group_nhat AS
+SELECT 
+    a.*, COUNT(groupID) AS 'Số group đã tham gia'
+FROM
+    account a
+        LEFT JOIN
+    groupaccount USING (accountID)
+GROUP BY accountID
+HAVING COUNT(groupID) = (SELECT 
+        MAX(a)
+    FROM
+        (SELECT 
+            COUNT(groupID) a
+        FROM
+            account
+        LEFT JOIN groupaccount USING (accountID)
+        GROUP BY accountID) AS bangphu);
+        
+##Câu 3
+CREATE VIEW cau_hoi_content_dai AS
+SELECT questionID, content FROM question WHERE LENGTH(content) >17;
+DELETE FROM cau_hoi_content_dai;
+
+##Câu 4
+CREATE VIEW phong_ban_nhieu_nhan_vien_nhat AS
+SELECT 
+    departmentID,
+    departmentname,
+    COUNT(accountID) AS 'Số nhân viên'
+FROM
+    department
+        LEFT JOIN
+    account USING (departmentID)
+GROUP BY departmentID
+HAVING COUNT(accountID) = (SELECT 
+        MAX(a)
+    FROM
+        (SELECT 
+            COUNT(accountID) a
+        FROM
+            department
+        LEFT JOIN account USING (departmentID)
+        GROUP BY departmentID) AS bangphu);
+
+##Câu 5
+CREATE VIEW cau_hoi_do_user_ho_Nguyen_tao AS
+SELECT 
+    q.questionID, q.content, a.fullname
+FROM
+    question q
+        LEFT JOIN
+    `account` a ON q.creatorID = a.accountID
+WHERE
+    fullname LIKE 'Nguyễn%';
