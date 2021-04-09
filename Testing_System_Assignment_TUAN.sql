@@ -79,24 +79,34 @@ INSERT INTO `group` (groupname, creatorID, createdate) VALUES
 ("Group_9", 5, '2019/04/08'),
 ("Group_10", 4, '2019/07/25');
 
+DROP TABLE IF EXISTS groupaccount;
 CREATE TABLE IF NOT EXISTS groupaccount
 (
 	groupID			INT UNSIGNED NOT NULL,
-    accountID		INT UNSIGNED NOT NULL UNIQUE,
+    accountID		INT UNSIGNED NOT NULL,
     joindate		DATE,
     PRIMARY KEY(GroupID, AccountID)
 );
 INSERT INTO groupaccount (groupID, accountID, joindate) VALUES
 (1, 7, '2021/04/01'),
 (3, 3, '2021/04/02'),
-(4, 2, '2021/02/16'),
+(2, 2, '2021/02/16'),
 (8, 1, '2020/05/18'),
-(6, 12, '2018/12/27'),
-(2, 14, '2017/04/26'),
+(2, 12, '2018/12/27'),
+(4, 14, '2017/04/26'),
 (7, 13, '2016/12/08'),
 (9, 10, '2016/11/15'),
-(5, 11, '2016/08/16'),
-(10, 4, '2021/04/03');
+(6, 11, '2016/08/16'),
+(10, 4, '2021/04/03'),
+(1, 4, '2021/04/01'),
+(1, 2, '2021/02/01'),
+(1, 12, '2021/01/04'),
+(1, 5, '2020/05/11'),
+(1, 6, '2019/08/09'),
+(1, 10, '2020/07/07'),
+(1, 11, '2021/01/22');
+
+
 
 DROP TABLE IF EXISTS typequestion;
 CREATE TABLE IF NOT EXISTS typequestion
@@ -152,16 +162,16 @@ CREATE TABLE IF NOT EXISTS answer
     iscorrect		ENUM('True','False')
 );
 INSERT INTO answer (content, questionID, iscorrect) VALUES
-('trả lời câu hỏi số 1', 1, 'True'),
-('trả lời câu hỏi số 2', 1, 'False'),
-('trả lời câu hỏi số 3', 1, 'True'),
-('trả lời câu hỏi số 4', 1, 'False'),
-('trả lời câu hỏi số 5', 5, 'True'),
-('trả lời câu hỏi số 6', 6, 'False'),
-('trả lời câu hỏi số 7', 7, 'True'),
-('trả lời câu hỏi số 8', 8, 'False'),
-('trả lời câu hỏi số 9', 9, 'True'),
-('trả lời câu hỏi số 10', 10, 'False');
+('câu trả lời số 1', 1, 'True'),
+('câu trả lời số 2', 1, 'False'),
+('câu trả lời số 3', 1, 'True'),
+('câu trả lời số 4', 1, 'False'),
+('câu trả lời số 5', 5, 'True'),
+('câu trả lời số 6', 6, 'False'),
+('câu trả lời số 7', 7, 'True'),
+('câu trả lời số 8', 8, 'False'),
+('câu trả lời số 9', 9, 'True'),
+('câu trả lời số 10', 10, 'False');
 
 DROP TABLE IF EXISTS exam;
 CREATE TABLE IF NOT EXISTS exam
@@ -226,9 +236,9 @@ SELECT COUNT(accountID) AS 'Số nhân viên' FROM `account` WHERE departmentID=
 ##Câu 11
 SELECT fullname FROM `account` WHERE fullname LIKE 'D%o';
 ##Câu 12
-DELETE FROM exam WHERE createdate < '2019/12/20';
+#DELETE FROM exam WHERE createdate < '2019/12/20';
 ##Câu 13
-DELETE FROM question WHERE content LIKE 'Câu hỏi%';
+#DELETE FROM question WHERE content LIKE 'Câu hỏi%';
 ##Câu 14
 UPDATE `account` SET fullname= 'Nguyễn Bá Lộc', email= 'loc.nguyenba@vti.com.vn' WHERE accountID=5;
 ##Câu 15
@@ -274,16 +284,253 @@ GROUP BY departmentID
 HAVING COUNT(accountID) > 3;
 
 ##Câu 5
-SELECT questionID, content, COUNT(questionID) a FROM question LEFT JOIN examquestion USING(questionID) GROUP BY questionID;
+SELECT 
+    questionID,
+    content,
+    COUNT(examID) AS 'Số lượng bài kiểm tra'
+FROM
+    question
+        JOIN
+    examquestion USING (questionID)
+GROUP BY questionID HAVING COUNT(examID) =(SELECT 
+    MAX(a)
+FROM
+    (SELECT 
+        COUNT(examID) a
+    FROM
+        examquestion
+    JOIN question USING (questionID)
+    GROUP BY questionID) AS bang1);
+
+##Câu 6
+SELECT 
+    categoryID, categoryname, COUNT(questionID) AS 'so luong question'
+FROM
+    categoryquestion 
+        LEFT JOIN
+    question  USING (categoryID)
+GROUP BY categoryID;
+
 ##Câu 7
-##Câu 7
+SELECT 
+    questionID, content, COUNT(examID) AS 'So bai kiem tra'
+FROM
+    question
+        LEFT JOIN
+    examquestion USING (questionID)
+        LEFT JOIN
+    exam USING (examID)
+GROUP BY questionID;
+
+##Câu 8
+SELECT 
+    q.questionID, q.content, COUNT(answerID) AS 'so cau tra loi'
+FROM
+    question q
+        LEFT JOIN
+    answer a USING (questionID)
+GROUP BY q.questionID
+HAVING COUNT(answerID) = (SELECT 
+        MAX(a)
+    FROM
+        (SELECT 
+            COUNT(answerID) a
+        FROM
+            question
+        LEFT JOIN answer USING (questionID)
+        GROUP BY questionID) AS bangphu);
 ##Câu 9
+SELECT 
+    g.groupID,
+    g.groupname,
+    COUNT(accountID) AS 'So luong account'
+FROM
+    `group` g
+        LEFT JOIN
+    groupaccount USING (groupID)
+GROUP BY groupID;
+
 ##Câu 10
+SELECT 
+    positionID, positionname, COUNT(accountID) AS 'So nguoi'
+FROM
+    position
+        LEFT JOIN
+    `account` USING (positionID)
+GROUP BY positionID
+HAVING COUNT(accountID) = (SELECT 
+        MAX(a)
+    FROM
+        (SELECT 
+            COUNT(accountID) a
+        FROM
+            `account`
+        RIGHT JOIN position USING (positionID)
+        GROUP BY positionID) AS bangphu);
+        
 ##Câu 11
+SELECT 
+    *
+FROM
+    department
+        LEFT JOIN
+    (SELECT 
+        departmentID, COUNT(positionname) AS 'so nhan vien dev'
+    FROM
+        department
+    JOIN `account` USING (departmentID)
+    JOIN position USING (positionID)
+    WHERE
+        positionname = 'DEV'
+    GROUP BY departmentID) AS bangdev USING (departmentID)
+        LEFT JOIN
+    (SELECT 
+        departmentID, COUNT(positionname) AS 'So nhan vien test'
+    FROM
+        department
+    JOIN `account` USING (departmentID)
+    JOIN position USING (positionID)
+    WHERE
+        positionname = 'TEST'
+    GROUP BY departmentID) AS bangtest USING (departmentID)
+        LEFT JOIN
+    (SELECT 
+        departmentID,
+            COUNT(positionID) AS 'So nhan vien Scum Master'
+    FROM
+        department
+    JOIN `account` USING (departmentID)
+    JOIN position USING (positionID)
+    WHERE
+        positionname = 'SCUM MASTER'
+    GROUP BY departmentID) AS bangSM USING (departmentID)
+        LEFT JOIN
+    (SELECT 
+        departmentID, COUNT(positionID) AS 'So nhan vien PM'
+    FROM
+        department
+    JOIN `account` USING (departmentID)
+    JOIN position USING (positionID)
+    WHERE
+        positionname = 'PM'
+    GROUP BY departmentID) AS bangPM USING (departmentID)
+GROUP BY departmentID;
+
 ##Câu 12
+SELECT 
+	q.questionID, 
+	q.content AS 'Nội dung', 
+	c.categoryname AS 'Chủ đề', 
+	t.typename 'Loại', 
+	a.fullname AS 'Người tạo', 
+	q.createdate AS 'Ngày tạo' 
+FROM 
+		question q 
+	LEFT JOIN categoryquestion c USING(categoryID) 
+    LEFT JOIN typequestion t USING(typeID) 
+    LEFT JOIN `account` a ON q.creatorID=a.accountID;
+
 ##Câu 13
+SELECT 
+	t.*, 
+	COUNT(questionID) AS 'Số lương câu hỏi' 
+FROM 
+	typequestion t 
+		JOIN question q USING(typeID) 
+GROUP BY t.typeID; 
+
 ##Câu 14
-##Câu 15
+SELECT 
+    groupID, groupname
+FROM
+    `group`
+        LEFT JOIN
+    groupaccount USING (groupID)
+WHERE
+    accountID IS NULL;
+    
 ##Câu 16
+SELECT 
+    q.questionID, q.content
+FROM
+    question q
+        LEFT JOIN
+    answer a USING (questionID)
+WHERE
+    a.answerID IS NULL;
+    
 ##Câu 17
+#a)
+SELECT 
+    *
+FROM
+    `account`
+        JOIN
+    groupaccount USING (accountID)
+WHERE
+    groupID = 1;
+#b)
+SELECT 
+    *
+FROM
+    `account`
+        JOIN
+    groupaccount USING (accountID)
+WHERE
+    groupID = 2;
+#c)
+SELECT * FROM (SELECT 
+    *
+FROM
+    `account`
+        JOIN
+    groupaccount USING (accountID)
+WHERE
+    groupID = 1) AS bang1
+UNION ALL
+SELECT * FROM (SELECT 
+    *
+FROM
+    `account`
+        JOIN
+    groupaccount USING (accountID)
+WHERE
+    groupID = 2) AS bang2;
+
 ##Câu 18
+#a)
+SELECT 
+    groupID, groupname
+FROM
+    `group`
+        JOIN
+    groupaccount USING (groupID)
+GROUP BY groupID
+HAVING COUNT(accountID) > 5;
+#b)
+SELECT 
+    groupID, groupname
+FROM
+    `group`
+        JOIN
+    groupaccount USING (groupID)
+GROUP BY groupID
+HAVING COUNT(accountID) < 7;
+#c)
+SELECT * FROM (SELECT 
+    groupID, groupname
+FROM
+    `group`
+        JOIN
+    groupaccount USING (groupID)
+GROUP BY groupID
+HAVING COUNT(accountID) > 5) AS bang1
+UNION
+SELECT * FROM (SELECT 
+    groupID, groupname
+FROM
+    `group`
+        JOIN
+    groupaccount USING (groupID)
+GROUP BY groupID
+HAVING COUNT(accountID) < 7) AS bang2;
