@@ -704,16 +704,13 @@ BEGIN
 ##Câu 6
 DROP PROCEDURE IF EXISTS cau6;
 DELIMITER $$
-CREATE PROCEDURE cau6(IN nhap_chuoi VARCHAR(20), OUT ten_group VARCHAR(50), OUT name_user VARCHAR(50))
+CREATE PROCEDURE cau6(IN nhap_chuoi VARCHAR(20))
 BEGIN
-	SELECT groupname INTO ten_group FROM `group` WHERE groupname LIKE nhap_chuoi;
-    SELECT username INTO name_user FROM `account` WHERE username LIKE nhap_chuoi;
+ SELECT groupname AS result FROM `group` WHERE groupname LIKE CONCAT('%',nhap_chuoi,'%') UNION ALL
+ SELECT username AS result FROM `account` WHERE username LIKE CONCAT('%',nhap_chuoi,'%');
 END$$
 DELIMITER ;
-SET @groupname='';
-SET @username='';
-CALL cau6('lebaolinh',@groupname,@username);
-SELECT @groupname,@username;
+CALL cau6('group');
 
 ##Câu 7
 DROP PROCEDURE IF EXISTS cau7;
@@ -1026,4 +1023,4 @@ CASE
 	WHEN COUNT(accountID) =0 THEN 'không có user'
     ELSE ''
 END AS note
-FROM department LEFT JOIN `account` USING(departmentID) GROUP BY departmentID
+FROM department LEFT JOIN `account` USING(departmentID) GROUP BY departmentID;
