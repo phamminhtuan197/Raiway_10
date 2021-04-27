@@ -1,474 +1,76 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.Locale;
 public class Program {
 
 	public static void main (String[] args) {
-		Department department1 = new Department();
-		department1.id = 1;
-		department1.name = DepartmentName.SALES;
-		
-		Department department2 = new Department();
-		department2.id = 2;
-		department2.name = DepartmentName.MARKETING;
-		
-		Department department3 = new Department();
-		department3.id = 3;
-		department3.name = DepartmentName.TRAINING;
-		
-		Department department4 = new Department();
-		department4.id = 4;
-		department4.name = DepartmentName.SUPPORT;
-		
-		Department department5 = new Department();
-		department5.id = 5;
-		department5.name = DepartmentName.MANAGEMENT;
-		
-		Department department6 = new Department();
-		department6.id = 6;
-		department6.name = DepartmentName.ENGINEERING;
-		
-		Department department7 = new Department();
-		department7.id = 7;
-		department7.name = DepartmentName.SERVICES;
-		
-		Department department8 = new Department();
-		department8.id = 8;
-		department8.name = DepartmentName.ACCOUNTING;
-		
-		Position position1 = new Position();
-		position1.id =1;
-		position1.name = PositionName.DEV;
-		
-		Position position2 = new Position();
-		position2.id = 2;
-		position2.name = PositionName.TEST;
-		
-		Position position3 = new Position();
-		position3.id = 3;
-		position3.name = PositionName.SCUMMASTER;
-		
-		Position position4 = new Position();
-		position4.id = 4;
-		position4.name = PositionName.PM;
-		
-		Account account1 = new Account();
-		account1.id = 1;
-		account1.email = "tmonroe0@unicef.org";
-		account1.userName = "tmonroe0";
-		account1.fullName = "Trixy Monroe";
-		account1.department = department5;
-		account1.position = position1;
-		account1.createDate = new Date(2020/2/11);
 
+		Department department1 = new Department(1, DepartmentName.SALES);
+		Department department2 = new Department(2, DepartmentName.MARKETING);
+		Department department3 = new Department(3, DepartmentName.TRAINING);
+		Department department4 = new Department(4, DepartmentName.SUPPORT);
+		Department department5 = new Department(5, DepartmentName.MANAGEMENT);
+		Department department6 = new Department(6, DepartmentName.ENGINEERING);
+		Department department7 = new Department(7, DepartmentName.SERVICES);
+		Department department8 = new Department(8, DepartmentName.ACCOUNTING);
 		
-		Account account2 = new Account();
-		account2.id = 2;
-		account2.email = "pturner1@state.gov";
-		account2.userName = "pturner1";
-		account2.fullName = "Paige Turner";
-		account2.department = department8;
-		account2.position = position2;
-		account2.createDate = new Date(2019/9/7);
-		
-		Account account3 = new Account();
-		account3.id = 3;
-		account3.email = "gfranklyn2@newsvine.com";
-		account3.userName = "gfranklyn2";
-		account3.fullName = "Gabie Franklyn";
-		account3.department = department7;
-		account3.position = position2;
-		account3.createDate = new Date(2020/4/24);
-		
-		Account account4 = new Account();
-		account4.id = 4;
-		account4.email = "kcosbey3@macromedia.com";
-		account4.userName = "kcosbey3";
-		account4.fullName = "Karry Cosbey";
-		account4.department = department1;
-		account4.position = position3;
-		account4.createDate = new Date(2018/9/12);
-	
-		Account account5 = new Account();
-		account5.id = 5;
-		account5.email = "hburston4@reverbnation.com";
-		account5.userName = "hburston4";
-		account5.fullName = "Hannah Burston";
-		account5.department = department4;
-		account5.position = position3;
-		account5.createDate = new Date(2020/7/12);
-		
-		Account account6 = new Account();
-		account6.id = 6;
-		account6.email = "ftwitty5@berkeley.edu";
-		account6.userName = "ftwitty5";
-		account6.fullName = "Francisca Twitty";
-		account6.department = department3;
-		account6.position = position4;
-		account6.createDate = new Date(2019/04/10);
-		
-		Account account7 = new Account();
-		account7.id = 7;
-		account7.email = "wbamlett6@about.com";
-		account7.userName = "wbamlett6";
-		account7.fullName = "Wyndham Bamlett";
-		account7.department = department3;
-		account7.position = position3;
-		account7.createDate = new Date(2020/01/23);
-		
-		Account account8 = new Account();
-		account8.id = 8;
-		account8.email = "lassad7@xrea.com";
-		account8.userName = "lassad7";
-		account8.fullName = "Linea Assad";
-		account8.department = department2;
-		account8.position = position3;
-		account8.createDate = new Date(2020/10/16);
-		
-		Account account9 = new Account();
-		account9.id = 9;
-		account9.email = "rdewing8@google.fr";
-		account9.userName = "rdewing8";
-		account9.fullName = "Randie Dewing";
-		account9.department = department5;
-		account9.position = position2;
-		account9.createDate = new Date(2021/03/23);
-		
-		Account account10 = new Account();
-		account10.id = 10;
-		account10.email = "kvaudrey9@amazon.de";
-		account10.userName = "kvaudrey9";
-		account10.fullName = "Krystalle Vaudrey";
-		account10.department = department2;
-		account10.position = position2;
-		account10.createDate = new Date(2020/01/30);
-		
-		Account account11 = new Account();
-		account11.id = 11;
-		account11.email = "mbilliea@intel.com";
-		account11.userName = "mbilliea";
-		account11.fullName = "Mira Billie";
-		account11.department = department6;
-		account11.position = position4;
-		account11.createDate = new Date(2018/07/01);
-		
-		Account account12 = new Account();
-		account12.id = 12;
-		account12.email = "kshaplandb@digg.com";
-		account12.userName = "kshaplandb";
-		account12.fullName = "Kimbra Shapland";
-		account12.department = department1;
-		account12.position = position3;
-		account12.createDate = new Date(2019/06/26);
-		
-		Account account13 = new Account();
-		account13.id = 13;
-		account13.email = "kmchalec@unc.edu";
-		account13.userName = "kmchalec";
-		account13.fullName = "Kaylyn McHale";
-		account13.department = department4;
-		account13.position = position2;
-		account13.createDate = new Date(2019/9/19);
-		
-		Account account14 = new Account();
-		account14.id = 14;
-		account14.email = "mjoselovitchd@1688.com";
-		account14.userName = "mjoselovitchd";
-		account14.fullName = "Melonie Joselovitch";
-		account14.department = department8;
-		account14.position = position3;
-		account14.createDate = new Date(2021/02/19);
-				
-		Account account15 = new Account();
-		account15.id = 15;
-		account15.email = "mdee@businesswire.com";
-		account15.userName = "mdee";
-		account15.fullName = "Meg de Nore";
-		account15.department = department8;
-		account15.position = position2;
-		account15.createDate = new Date(2019/07/01);
-		
-		Group group1 = new Group();
-		group1.id = 1;
-		group1.name = "Carbon Dioxide";
-		group1.creator = account8;
-		group1.createDate = new Date(2020/06/13);
-		
-		Group group2 = new Group();
-		group2.id = 2;
-		group2.name = "Leader Nasal";
-		group2.creator = account15;
-		group2.createDate = new Date(2021/03/9);
-		
-		Group group3 = new Group();
-		group3.id = 3;
-		group3.name = "Risperidone";
-		group3.creator = account8;
-		group3.createDate = new Date(2021/03/07);
-		
-		Group group4 = new Group();
-		group4.id = 4;
-		group4.name = "Good Sense all day allergy";
-		group4.creator = account11;
-		group4.createDate = new Date(2020/05/28);
-		
-		Group group5 = new Group();
-		group5.id = 5;
-		group5.name = "Valacyclovir Hydrochloride";
-		group5.creator = account15;
-		group5.createDate = new Date(2021/03/11);
-		
-		Group group6 = new Group();
-		group6.id = 6;
-		group6.name = "Antibacterial Moist Wipe";
-		group6.creator = account15;
-		group6.createDate = new Date(2020/9/8);
-		
-		Group group7 = new Group();
-		group7.id = 7;
-		group7.name = "Lisinopril";
-		group7.creator = account12;
-		group7.createDate = new Date(2020/9/27);
-		
-		Group group8 = new Group();
-		group8.id = 8;
-		group8.name = "Jardiance";
-		group8.creator = account11;
-		group8.createDate = new Date(2021/02/07);
-		
-		Group group9 = new Group();
-		group9.id = 9;
-		group9.name = "Monodox";
-		group9.creator = account4;
-		group9.createDate = new Date(2021/04/14);
-		
-		Group group10 = new Group();
-		group10.id = 10;
-		group10.name = "Denti-Care Denti-Freeze";
-		group10.creator = account7;
-		group10.createDate = new Date(2020/05/24);
-		
-		GroupAccount groupAccount1 = new GroupAccount();
-		groupAccount1.group = group7;
-		groupAccount1.account = account1;
-		groupAccount1.joinDate = new Date(2021/03/27);
-		
-		GroupAccount groupAccount2 = new GroupAccount();
-		groupAccount2.group = group4;
-		groupAccount2.account = account2;
-		groupAccount2.joinDate = new Date(2020/01/28);
-		
-		GroupAccount groupAccount3 = new GroupAccount();
-		groupAccount3.group = group3;
-		groupAccount3.account = account3;
-		groupAccount3.joinDate = new Date(2019/9/19);
-		
-		GroupAccount groupAccount4 = new GroupAccount();
-		groupAccount4.group = group1;
-		groupAccount4.account = account4;
-		groupAccount4.joinDate = new Date(2021/03/11);
-		
-		GroupAccount groupAccount5 = new GroupAccount();
-		groupAccount5.group = group4;
-		groupAccount5.account = account5;
-		groupAccount5.joinDate = new Date(2019/03/17);
-	
-		GroupAccount groupAccount6 = new GroupAccount();
-		groupAccount6.group = group10;
-		groupAccount6.account = account6;
-		groupAccount6.joinDate = new Date(2020/01/14);
+		Position position1 = new Position(1, PositionName.DEV);
+		Position position2 = new Position(2, PositionName.TEST);
+		Position position3 = new Position(3, PositionName.SCUMMASTER);
+		Position position4 = new Position(4, PositionName.PM);
 
-		GroupAccount groupAccount7 = new GroupAccount();
-		groupAccount7.group = group7;
-		groupAccount7.account = account7;
-		groupAccount7.joinDate = new Date(2020/01/14);
+		Account account1 = new Account(1,"tmonroe0@unicef.org","tmonroe0","Trixy Monroe",department5,position1);
+		Account account2 = new Account(2,"pturner1@state.gov","pturner1","Paige Turner",department8,position2);
+		Account account3 = new Account(3,"gfranklyn2@newsvine.com","gfranklyn2","Gabie Franklyn",department7,position2);
+		Account account4 = new Account(4,"kcosbey3@macromedia.com","kcosbey3","Karry Cosbey",department1,position3);
+		Account account5 = new Account(5,"hburston4@reverbnation.com","hburston4","Hannah Burston",department4,position3);
+		Account account6 = new Account(6,"ftwitty5@berkeley.edu","ftwitty5","Francisca Twitty",department3,position4);
+		Account account7 = new Account(7,"wbamlett6@about.com","wbamlett6","Wyndham Bamlett",department3,position3);
+		Account account8 = new Account(8,"lassad7@xrea.com","lassad7","Linea Assad",department2,position3);
+		Account account9 = new Account(9,"rdewing8@google.fr","rdewing8","Randie Dewing",department5,position2);
+		Account account10 = new Account(10,"kvaudrey9@amazon.de","kvaudrey9","Krystalle Vaudrey",department2,position2);
+		Account account11 = new Account(11,"mbilliea@intel.com","mbilliea","Mira Billie",department6,position4);
+		Account account12 = new Account(12,"kshaplandb@digg.com","kshaplandb","Kimbra Shapland",department1,position3);
+		Account account13 = new Account(13,"kmchalec@unc.edu","kmchalec","Kaylyn McHale",department4,position2);
+		Account account14 = new Account(14,"mjoselovitchd@1688.com","mjoselovitchd","Melonie Joselovitch",department8,position3);
+		Account account15 = new Account(15,"mdee@businesswire.com","mdee","Meg de Nore",department8,position2);
 		
-		GroupAccount groupAccount8 = new GroupAccount();
-		groupAccount8.group = group2;
-		groupAccount8.account = account8;
-		groupAccount8.joinDate = new Date(2020/12/29);
+		Group group1 = new Group(1,"Carbon Dioxide",account8);
+		Group group2 = new Group(2,"Leader Nasal",account15);
+		Group group3 = new Group(3,"Risperidone",account8);
+		Group group4 = new Group(4,"Good Sense all day allergy",account11);
+		Group group5 = new Group(5,"Valacyclovir Hydrochloride",account15);
+		Group group6 = new Group(6,"Antibacterial Moist Wipe",account15);
+		Group group7 = new Group(7,"Lisinopril",account12);
+		Group group8 = new Group(8,"Jardiance",account11);
+		Group group9 = new Group(9,"Monodox",account4);
+		Group group10 = new Group(10,"Denti-Care Denti-Freeze",account7);
 		
-		GroupAccount groupAccount9 = new GroupAccount();
-		groupAccount9.group = group8;
-		groupAccount9.account = account9;
-		groupAccount9.joinDate = new Date(2019/02/12);
+		TypeQuestion typeQuestion1 = new TypeQuestion(1,TypeName.ESSAY);
+		TypeQuestion typeQuestion2 = new TypeQuestion(2,TypeName.MULTIPLE_CHOICE);
 		
-		GroupAccount groupAccount10 = new GroupAccount();
-		groupAccount10.group = group10;
-		groupAccount10.account = account10;
-		groupAccount10.joinDate = new Date(2020/02/07);
+		CategoryQuestion categoryQuestion1 = new CategoryQuestion(1,CategoryName.JAVA);
+		CategoryQuestion categoryQuestion2 = new CategoryQuestion(2,CategoryName.NET);
+		CategoryQuestion categoryQuestion3 = new CategoryQuestion(3,CategoryName.SQL);
+		CategoryQuestion categoryQuestion4 = new CategoryQuestion(4,CategoryName.POSTMAN);
+		CategoryQuestion categoryQuestion5 = new CategoryQuestion(5,CategoryName.RUBY);
 		
-		GroupAccount groupAccount11 = new GroupAccount();
-		groupAccount11.group = group5;
-		groupAccount11.account = account11;
-		groupAccount11.joinDate = new Date(2019/03/8);
-		
-		GroupAccount groupAccount12 = new GroupAccount();
-		groupAccount12.group = group6;
-		groupAccount12.account = account12;
-		groupAccount12.joinDate = new Date(2019/02/26);
-		
-		GroupAccount groupAccount13 = new GroupAccount();
-		groupAccount13.group = group9;
-		groupAccount13.account = account13;
-		groupAccount13.joinDate = new Date(2020/8/9);
-		
-		GroupAccount groupAccount14 = new GroupAccount();
-		groupAccount14.group = group8;
-		groupAccount14.account = account14;
-		groupAccount14.joinDate = new Date(2019/12/17);
-		
-		GroupAccount groupAccount15 = new GroupAccount();
-		groupAccount15.group = group6;
-		groupAccount15.account = account15;
-		groupAccount15.joinDate = new Date(2019/8/04);
-		
-		TypeQuestion typeQuestion1 = new TypeQuestion();
-		typeQuestion1.id = 1;
-		typeQuestion1.name = TypeName.ESSAY;
-		
-		TypeQuestion typeQuestion2 = new TypeQuestion();
-		typeQuestion2.id = 2;
-		typeQuestion2.name = TypeName.MULTIPLE_CHOICE;
-		
-		CategoryQuestion categoryQuestion1 = new CategoryQuestion();
-		categoryQuestion1.id = 1;
-		categoryQuestion1.name = CategoryName.JAVA;
-		
-		CategoryQuestion categoryQuestion2 = new CategoryQuestion();
-		categoryQuestion2.id = 2;
-		categoryQuestion2.name = CategoryName.NET;
-		
-		CategoryQuestion categoryQuestion3 = new CategoryQuestion();
-		categoryQuestion3.id = 3;
-		categoryQuestion3.name = CategoryName.SQL;
-		
-		CategoryQuestion categoryQuestion4 = new CategoryQuestion();
-		categoryQuestion4.id = 4;
-		categoryQuestion4.name = CategoryName.POSTMAN;
-		
-		CategoryQuestion categoryQuestion5 = new CategoryQuestion();
-		categoryQuestion5.id = 5;
-		categoryQuestion5.name = CategoryName.RUBY;
-		
-		Question question1 = new Question();
-		question1.id = 1;
-		question1.content = "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.";
-		question1.category = categoryQuestion3;
-		question1.type = typeQuestion2;
-		question1.creator = account11;
-		question1.createDate = new Date(2019/8/29);
-		
-		Question question2 = new Question();
-		question2.id = 2;
-		question2.content = "Nulla justo.";
-		question2.category = categoryQuestion3;
-		question2.type = typeQuestion2;
-		question2.creator = account9;
-		question2.createDate = new Date(2018/12/12);
-		
-		Question question3 = new Question();
-		question3.id = 3;
-		question3.content = "Suspendisse potenti.";
-		question3.category = categoryQuestion2;
-		question3.type = typeQuestion2;
-		question3.creator = account5;
-		question3.createDate = new Date(2021/02/23);
-		
-		Question question4 = new Question();
-		question4.id = 4;
-		question4.content = "In hac habitasse platea dictumst.";
-		question4.category = categoryQuestion4;
-		question4.type = typeQuestion2;
-		question4.creator = account1;
-		question4.createDate = new Date(2020/05/28);
-		
-		Question question5 = new Question();
-		question5.id = 5;
-		question5.content = "Aenean fermentum.";
-		question5.category = categoryQuestion2;
-		question5.type = typeQuestion1;
-		question5.creator = account9;
-		question5.createDate = new Date(2019/11/16);
-		
-		Question question6 = new Question();
-		question6.id = 6;
-		question6.content = "Donec ut mauris eget massa tempor convallis.";
-		question6.category = categoryQuestion4;
-		question6.type = typeQuestion2;
-		question6.creator = account11;
-		question6.createDate = new Date(2018/9/8);
-		
-		Question question7 = new Question();
-		question7.id = 7;
-		question7.content = "Ut tellus.";
-		question7.category = categoryQuestion5;
-		question7.type = typeQuestion1;
-		question7.creator = account15;
-		question7.createDate = new Date(2019/05/30);
-		
-		Question question8 = new Question();
-		question8.id = 8;
-		question8.content = "Vivamus vestibulum sagittis sapien.";
-		question8.category = categoryQuestion5;
-		question8.type = typeQuestion2;
-		question8.creator = account11;
-		question8.createDate = new Date(2019/12/31);
-		
-		Question question9 = new Question();
-		question9.id = 9;
-		question9.content = "Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.";
-		question9.category = categoryQuestion5;
-		question9.type = typeQuestion2;
-		question9.creator = account11;
-		question9.createDate = new Date(2019/11/10);
-		
-		Question question10 = new Question();
-		question10.id = 10;
-		question10.content = "Duis mattis egestas metus.";
-		question10.category = categoryQuestion4;
-		question10.type = typeQuestion2;
-		question10.creator = account4;
-		question10.createDate = new Date(2019/02/9);
-		
-		Question question11 = new Question();
-		question11.id = 11;
-		question11.content = "Maecenas ut massa quis augue luctus tincidunt.";
-		question11.category = categoryQuestion4;
-		question11.type = typeQuestion2;
-		question11.creator = account2;
-		question11.createDate = new Date(2019/05/22);
-		
-		Question question12 = new Question();
-		question12.id = 12;
-		question12.content = "Morbi non quam nec dui luctus rutrum.";
-		question12.category = categoryQuestion3;
-		question12.type = typeQuestion2;
-		question12.creator = account11;
-		question12.createDate = new Date(2021/04/19);
-		
-		Question question13 = new Question();
-		question13.id = 13;
-		question13.content = "Quisque porta volutpat erat.";
-		question13.category = categoryQuestion3;
-		question13.type = typeQuestion1;
-		question13.creator = account6;
-		question13.createDate = new Date(2019/07/13);
-		
-		Question question14 = new Question();
-		question14.id = 14;
-		question14.content = "Integer tincidunt ante vel ipsum.";
-		question14.category = categoryQuestion3;
-		question14.type = typeQuestion1;
-		question14.creator = account15;
-		question14.createDate = new Date(2018/04/29);
-		
-		Question question15 = new Question();
-		question15.id = 15;
-		question15.content = "Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.";
-		question15.category = categoryQuestion1;
-		question15.type = typeQuestion1;
-		question15.creator = account14;
-		question15.createDate = new Date(2020/03/06);
+		Question question1 = new Question(1,"Cum sociis",categoryQuestion3,typeQuestion2,account11);
+		Question question2 = new Question(2,"Nulla justo.",categoryQuestion3,typeQuestion2,account9);
+		Question question3 = new Question(3,"Suspendisse potenti.",categoryQuestion2,typeQuestion2,account5);
+		Question question4 = new Question(4,"In hac habitasse platea dictumst.",categoryQuestion4,typeQuestion2,account1);
+		Question question5 = new Question(5,"Aenean fermentum.",categoryQuestion2,typeQuestion1,account9);
+		Question question6 = new Question(6,"Donec ut mauris eget massa tempor convallis.",categoryQuestion4,typeQuestion2,account11);
+		Question question7 = new Question(7,"Ut tellus.",categoryQuestion5,typeQuestion1,account15);
+		Question question8 = new Question(8,"Vivamus vestibulum sagittis sapien.",categoryQuestion5,typeQuestion2,account11);
+		Question question9 = new Question(9,"Mauris enim leo",categoryQuestion5,typeQuestion2,account11);
+		Question question10 = new Question(10,"Duis mattis egestas metus.",categoryQuestion4,typeQuestion2,account4);
+		Question question11 = new Question(11,"Maecenas luctus tincidunt.",categoryQuestion4,typeQuestion2,account2);
+		Question question12 = new Question(12,"Morbi luctus rutrum.",categoryQuestion3,typeQuestion2,account11);
+		Question question13 = new Question(13,"Quisque porta volutpat erat.",categoryQuestion3,typeQuestion1,account6);
+		Question question14 = new Question(14,"Integer tincidunt ante vel ipsum.",categoryQuestion3,typeQuestion1,account15);
+		Question question15 = new Question(15,"Integer pede, tempus vel, pede.",categoryQuestion1,typeQuestion1,account14);
 		
 		Answer answer1 = new Answer(1,"In quis justo.",question1, true);
 		Answer answer2 = new Answer(2,"Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",question15, true);
@@ -491,6 +93,420 @@ public class Program {
 		Answer answer19 = new Answer(19, "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.", question3, true);
 		Answer answer20 = new Answer(20, "Nullam sit amet turpis elementum ligula vehicula consequat.", question9, false);
 		
-		answer2.display();
+		Exam exam1 = new Exam(1,105, "Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.", categoryQuestion1, 20, account7);
+		Exam exam2 = new Exam(2,169, "Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.", categoryQuestion2, 120, account3);
+		Exam exam3 = new Exam(3,116, "Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.", categoryQuestion4, 100, account4);
+		Exam exam4 = new Exam(4,159, "Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.", categoryQuestion5, 90, account3);
+		Exam exam5 = new Exam(5,151, "Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.", categoryQuestion2, 45, account8);
+		Exam exam6 = new Exam(6,121, "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.", categoryQuestion4, 45, account12);
+
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            account1.createDate = formatter.parse("30/09/2017");
+            account2.createDate = formatter.parse("16/06/2019");
+            account3.createDate = formatter.parse("02/02/2021");
+            account4.createDate = formatter.parse("03/05/2019");
+            account5.createDate = formatter.parse("01/03/2021");
+            account6.createDate = formatter.parse("21/12/2019");
+            account7.createDate = formatter.parse("20/05/2020");
+            account8.createDate = formatter.parse("06/03/2021");
+            account9.createDate = formatter.parse("08/01/2021");
+            account10.createDate = formatter.parse("20/09/2019");
+            account11.createDate = formatter.parse("09/09/2020");
+            account12.createDate = formatter.parse("22/07/2019");
+            account13.createDate = formatter.parse("24/04/2021");
+            account14.createDate = formatter.parse("17/11/2020");
+            account15.createDate = formatter.parse("11/11/2020");
+            
+            group1.createDate = formatter.parse("16/07/2020");
+            group2.createDate = formatter.parse("05/08/2020");
+            group3.createDate = formatter.parse("25/03/2020");
+            group4.createDate = formatter.parse("12/12/2019");
+            group5.createDate = formatter.parse("18/08/2019");
+            group6.createDate = formatter.parse("08/06/2019");
+            group7.createDate = formatter.parse("17/10/2020");
+            group8.createDate = formatter.parse("20/11/2020");
+            group9.createDate = formatter.parse("19/07/2020");
+            group10.createDate = formatter.parse("12/06/2020");
+            
+            question1.createDate = formatter.parse("15/03/2020");
+            question2.createDate = formatter.parse("26/01/2020");
+            question3.createDate = formatter.parse("06/09/2020");
+            question4.createDate = formatter.parse("24/01/2020");
+            question5.createDate = formatter.parse("25/12/2019");
+            question6.createDate = formatter.parse("06/03/2020");
+            question7.createDate = formatter.parse("27/01/2020");
+            question8.createDate = formatter.parse("20/06/2019");
+            question9.createDate = formatter.parse("14/02/2020");
+            question10.createDate = formatter.parse("24/07/2020");
+            question11.createDate = formatter.parse("22/03/2021");
+            question12.createDate = formatter.parse("10/03/2020");
+            question13.createDate = formatter.parse("27/10/2020");
+            question14.createDate = formatter.parse("17/05/2020");
+            question15.createDate = formatter.parse("23/02/2020");
+            
+            exam1.createDate = formatter.parse("21/01/2020");
+            exam2.createDate = formatter.parse("14/04/2021");
+            exam3.createDate = formatter.parse("05/05/2019");
+            exam4.createDate = formatter.parse("16/08/2019");
+            exam5.createDate = formatter.parse("22/08/2019");
+            exam6.createDate = formatter.parse("05/09/2019");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+		
+        account1.groups = new Group[] {group1, group3, group5};
+        account2.groups = new Group[] {group7, group8};
+        account3.groups = new Group[] {group6, group10};
+        account4.groups = new Group[] {group7, group6, group8};
+        account5.groups = new Group[] {group1, group4, group10};
+        account6.groups = new Group[] {group1, group9};
+        account7.groups = new Group[] {group1, group3, group5};
+        account8.groups = new Group[] {group2, group7};
+        account9.groups = new Group[] {group1, group2};
+        account10.groups = new Group[] {group6, group8, group10};
+        account11.groups = new Group[] {group1, group2, group5};
+        account12.groups = new Group[] {group3, group10};
+        account13.groups = new Group[] {group1, group2, group9};
+        account14.groups = new Group[] {group2, group8};
+        account15.groups = new Group[] {group1, group6, group7, group10};
+        
+        group1.accounts = new Account[] {account1, account5, account6, account7, account9, account11, account13, account15};
+        group2.accounts = new Account[] {account8, account9, account11, account13, account14};
+        group3.accounts = new Account[] {account1, account7, account12};
+        group4.accounts = new Account[] {account5};
+        group5.accounts = new Account[] {account1, account7, account11};
+        group6.accounts = new Account[] {account3, account4, account10, account15};		
+        group7.accounts = new Account[] {account2, account4, account8, account15};
+        group8.accounts = new Account[] {account2, account4, account10, account14};
+        group9.accounts = new Account[] {account6, account13};
+        group10.accounts = new Account[] {account3, account5, account10, account12, account15};
+
+        question1.exams = new Exam[] {exam5, exam6};
+        question2.exams = new Exam[] {exam1, exam3};
+        question3.exams = new Exam[] {exam1, exam2, exam6};
+        question4.exams = new Exam[] {exam1};
+        question5.exams = new Exam[] {exam1, exam3};
+        question6.exams = new Exam[] {exam3, exam6};
+        question7.exams = new Exam[] {exam1, exam6};
+        question8.exams = new Exam[] {exam2, exam4};
+        question9.exams = new Exam[] {exam4, exam6};
+        question10.exams = new Exam[] {exam1, exam2};
+        question11.exams = new Exam[] {exam1, exam6};
+        question12.exams = new Exam[] {exam2};
+        question13.exams = new Exam[] {exam3, exam5};
+        question14.exams = new Exam[] {exam1, exam4};
+        question15.exams = new Exam[] {exam3, exam6};
+        
+        exam1.questions = new Question[] {question2, question3, question4, question5, question7, question10, question11, question14};
+        exam2.questions = new Question[] {question3, question8, question10, question12};
+        exam3.questions = new Question[] {question2, question5, question6, question13, question15};
+        exam4.questions = new Question[] {question8, question9, question14};
+        exam5.questions = new Question[] {question1, question13};
+        exam6.questions = new Question[] {question1, question3, question6, question7, question9, question11, question15};
+		
+		//			TESTING SYSTEM 2 
+		
+//	EXERCISE 1:
+//		question1:
+		
+		if (account2.department == null) {
+			System.out.println("nhan vien nay chua co phong ban");
+		}
+		else {
+			System.out.println("Phong ban cua nhan vien la "+ account2.department);
+		}
+		
+//		question2:
+		if (account2.groups == null) {
+			System.out.println("nhan vien nay chua co group");
+		}
+		else {
+				int amountGroup = account2.groups.length;
+		if (amountGroup ==1 || amountGroup ==2) {
+			System.out.println("Group cua nhan vien nay la Java Fresher, C# Fresher");
+			}
+		if (amountGroup ==3) {
+			System.out.println("Nhan vien nay la nguoi quan trong, tham gia nhieu group");
+			}
+		if (amountGroup >= 4) {
+			System.out.println("Nhan vien nay la nguoi hong chuyen, tham gia tat ca cac group");
+			}
+		}
+		
+//		question3:
+		System.out.println(account2.department ==null ? "nhan vien nay chua co phong ban" : "Phong ban cua nhan vien la " + account2.department);
+		
+//		question4:
+		System.out.println(account1.position.name.toString() == "DEV" ? "Day la developer" : "Nguoi nay khong phai Developer");
+		
+//		question5:
+		int amountaccount = group1.accounts.length;
+		switch (amountaccount) {
+		case 1:
+			System.out.println("Nhom co 1 thanh vien");
+			break;
+		case 2:
+			System.out.println("Nhom co 2 thanh vien");
+			break;
+		case 3:
+			System.out.println("Nhom co 3 thanh vien");
+			break;
+		default:
+			System.out.println("Nhom co nhieu thanh vien");
+			break;
+		}
+
+//		question6:
+		int amountGroup = account2.groups.length;
+		switch (amountGroup) {
+		case 1:
+			System.out.println("Group cua nhan vien nay la Java Fresher, C# Fresher");
+			break;
+		case 2:
+			System.out.println("Group cua nhan vien nay la Java Fresher, C# Fresher");
+			break;
+		case 3:
+			System.out.println("Nhan vien nay la nguoi quan trong, tham gia nhieu group");
+			break;
+		default:
+			System.out.println("Nhan vien nay la nguoi hong chuyen, tham gia tat ca cac group");
+			break;
+		}
+		
+//		question7:
+		String nameOfPosition = account1.position.name.toString();
+		switch (nameOfPosition) {
+		case "DEV":
+			System.out.println("Day la Developer");
+			break;
+		default:
+			System.out.println("Nguoi nay khong phai Developer");
+			break;
+		}
+		
+//		question8:
+		Account[] accounts = { account1, account2, account3, account4, account5, account6, account7, account8, account9, account10, account11, account12, account13, account14, account15};
+		for (Account account : accounts) {
+			System.out.println("id=" + account.id + ", email=" + account.email + ", fullName=" + account.fullName + ", DepartmentName=" + account.department.name.toString());
+		}
+		
+//		question9:
+		Department[] departments = {department1, department2, department3, department4, department5, department6, department7, department8};
+		for (Department department : departments) {
+			System.out.println("id=" + department.id + ", DepartmentName=" + department.name);
+		}
+		
+//		question10:
+			for (int i=0; i<accounts.length; i++) {
+			System.out.println("thong tin account thu" + " " + (i+1) + " " + "la:");
+			System.out.println("Email:" + " " + accounts[i].email);
+			System.out.println("FullName:" + " " + accounts[i].fullName);
+			System.out.println("Department:" + " " + accounts[i].department.name.toString());
+		}
+		
+//		question11:
+			for (int i=0; i<departments.length; i++) {
+				System.out.println("Thong tin phong ban thu" + " " + (i+1) + " " + "la:");
+				System.out.println("ID:" + " " + departments[i].id);
+				System.out.println("Name:" + " " + departments[i].name);
+		}
+			
+//		question12:
+			for (int i=0; i<departments.length; i++) {
+				if (i==2) {
+					break;
+				}
+				System.out.println("Thong tin phong ban thu" + " " + (i+1) + " " + "la:");
+				System.out.println("ID:" + " " + departments[i].id);
+				System.out.println("Name:" + " " + departments[i].name);
+		}
+//		question13:
+			for (int i=0; i<accounts.length; i++) {
+				if (i!=1) {
+				System.out.println("thong tin account thu" + " " + (i+1) + " " + "la:");
+				System.out.println("Email:" + " " + accounts[i].email);
+				System.out.println("FullName:" + " " + accounts[i].fullName);
+				System.out.println("Department:" + " " + accounts[i].department.name.toString());
+				}
+			}
+		
+//		question14:
+			for (int i=1; i<4; i++) {
+				System.out.println("thong tin account thu" + " " + i + " " + "la:");
+				System.out.println("Email:" + " " + accounts[i].email);
+				System.out.println("FullName:" + " " + accounts[i].fullName);
+				System.out.println("Department:" + " " + accounts[i].department.name.toString());
+			}
+			
+//		question15:
+			for (int i=0; i<=20;i++) {
+				if (i %2 ==0)
+				System.out.println(i);
+			}
+		
+//		question16:
+//			q10:
+			int i =0;
+			while (i<accounts.length) {
+				System.out.println("thong tin account thu" + " " + (i+1) + " " + "la:");
+				System.out.println("Email:" + " " + accounts[i].email);
+				System.out.println("FullName:" + " " + accounts[i].fullName);
+				System.out.println("Department:" + " " + accounts[i].department.name.toString());
+				i++;
+			}
+
+//			q11:
+			int a =0;
+			while (a<departments.length) {
+				System.out.println("Thong tin phong ban thu" + " " + (a+1) + " " + "la:");
+				System.out.println("ID:" + " " + departments[a].id);
+				System.out.println("Name:" + " " + departments[a].name);
+				a++;
+			}
+			
+//			q12:
+			int b=0;
+			while (b<departments.length) {
+				if (b ==2) {
+					break;
+				}
+				System.out.println("Thong tin phong ban thu" + " " + (b+1) + " " + "la:");
+				System.out.println("ID:" + " " + departments[b].id);
+				System.out.println("Name:" + " " + departments[b].name);
+				b++;
+			}
+			
+//			q13:
+			int c=0;
+			while (c<accounts.length) {
+				if (c!=1) {
+				System.out.println("thong tin account thu" + " " + (c+1) + " " + "la:");
+				System.out.println("Email:" + " " + accounts[c].email);
+				System.out.println("FullName:" + " " + accounts[c].fullName);
+				System.out.println("Department:" + " " + accounts[c].department.name.toString());
+				}
+				c++;
+			}
+			
+//			q14:
+			int d=1;
+			while (d<4) {
+				System.out.println("thong tin account thu" + " " + d + " " + "la:");
+				System.out.println("Email:" + " " + accounts[d].email);
+				System.out.println("FullName:" + " " + accounts[d].fullName);
+				System.out.println("Department:" + " " + accounts[d].department.name.toString());
+				d++;
+			}
+			
+//			q15:
+			int j =0;
+			while (j<=20) {
+				if (j %2 == 0)
+				System.out.println(j);
+				j++;
+			}
+			
+//		question17:
+//			q10:
+			int i1 =0;
+			do {
+				System.out.println("thong tin account thu" + " " + (i1+1) + " " + "la:");
+				System.out.println("Email:" + " " + accounts[i1].email);
+				System.out.println("FullName:" + " " + accounts[i1].fullName);
+				System.out.println("Department:" + " " + accounts[i1].department.name.toString());
+				i1++;
+			}
+			 while (i1<accounts.length);
+
+//			q11:
+			int a1 =0;
+			do {
+				System.out.println("Thong tin phong ban thu" + " " + (a1+1) + " " + "la:");
+				System.out.println("ID:" + " " + departments[a1].id);
+				System.out.println("Name:" + " " + departments[a1].name);
+				a1++;
+			}
+			 while (a1<departments.length);
+			
+//			q12:
+			int b1=0;
+			do {
+				if (b1 ==2) {
+					break;
+				}
+				System.out.println("Thong tin phong ban thu" + " " + (b1+1) + " " + "la:");
+				System.out.println("ID:" + " " + departments[b1].id);
+				System.out.println("Name:" + " " + departments[b1].name);
+				b1++;
+			}
+			 while (b1<departments.length);
+			
+//			q13:
+			int c1=0;
+			do {
+				if (c1!=1) {
+				System.out.println("thong tin account thu" + " " + (c1+1) + " " + "la:");
+				System.out.println("Email:" + " " + accounts[c1].email);
+				System.out.println("FullName:" + " " + accounts[c1].fullName);
+				System.out.println("Department:" + " " + accounts[c1].department.name.toString());
+				}
+				c1++;
+			}
+			 while (c1<accounts.length);
+			
+//			q14:
+			int d1=1;
+			do {
+				System.out.println("thong tin account thu" + " " + d1 + " " + "la:");
+				System.out.println("Email:" + " " + accounts[d1].email);
+				System.out.println("FullName:" + " " + accounts[d1].fullName);
+				System.out.println("Department:" + " " + accounts[d1].department.name.toString());
+				d1++;
+			}
+			 while (d1<4);
+			
+//			q15:
+			int j1 =0;
+			do {
+				if (j1 %2 == 0)
+				System.out.println(j1);
+				j1++;
+			}
+			 while (j1<=20);
+			
+
+//	EXERCISE 2:
+//		question1:
+			int i2 =5;
+			System.out.printf("%d %n",i2);
+			
+//		question2:
+			int i3 =100000000;
+			System.out.printf(Locale.US, "%,d %n", i3);
+			
+//		question3:
+			double i4 = 5.567098;
+			System.out.printf("%.4f%n", i4);
+			
+//		question4:
+			String name = "Pham Minh Tuan";
+			System.out.printf("Ten toi la \"%s\" va toi dang doc than %n", name);
+			
+//		question5:
+			Date date = java.util.Calendar.getInstance().getTime();
+			System.out.printf("%td/%tm/%tY %tHh:%tMp:%tSs %n",date,date,date, date, date, date);
+			
+//		question6:
+			System.out.printf("%-30s %-30s %s %n", "Email", "FullName", "Department Name");
+			for(int i5=0; i5<accounts.length; i5++) {
+			System.out.printf("%-30s %-30s %s %n", accounts[i5].email, accounts[i5].fullName, accounts[i5].department.name.toString());
+			}
+			
+
+//	EXCERCISE 3
+//		question1:
+			
 	}
-}
+} 		
+	
