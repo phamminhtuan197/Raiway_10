@@ -1024,3 +1024,12 @@ CASE
     ELSE ''
 END AS note
 FROM department LEFT JOIN `account` USING(departmentID) GROUP BY departmentID;
+
+#deleteDepartment
+DROP PROCEDURE IF EXISTS sp_delete_department;
+DELIMITER $$
+CREATE PROCEDURE sp_delete_department(IN v_departmentID INT)
+BEGIN
+	DELETE FROM department WHERE departmentID = v_departmentID;
+END $$
+DELIMITER ;
