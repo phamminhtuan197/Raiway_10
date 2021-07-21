@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete 13 resources" deleteContents="true" description="Delete 13 resources" element1="/IBS-RestController" element10="/Advanced_Assignment_4.1_HQL" element11="/Advanced_Assignment_4.3_NativeSQL" element12="/IBS-Common" element13="/IBS-Repository" element2="/IBS-Application" element3="/IBS-AdminWeb" element4="/Advanced_Assignment_4.4" element5="/IBS-CustomerWeb" element6="/IBS-Service" element7="/IBS-Schedule" element8="/IBS-Model" element9="/Railway_VTI_Lab3_Account_Management_DEMO" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="13" stamp="1626879947788"/>
+</session>
