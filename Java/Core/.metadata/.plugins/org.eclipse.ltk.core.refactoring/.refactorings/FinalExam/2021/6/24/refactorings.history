@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;ScannerUtils.java&apos; to &apos;Advanced_Assignment_4/src/main/java/utils&apos;&#x0D;&#x0A;- Original project: &apos;FinalExam&apos;&#x0D;&#x0A;- Destination element: &apos;Advanced_Assignment_4/src/main/java/utils&apos;&#x0D;&#x0A;- Original element: &apos;utils.ScannerUtils.java&apos;" description="Copy compilation unit" destination="=Advanced_Assignment_4/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;utils" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;utils{ScannerUtils.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1623039172155" units="1" version="1.0"/>
+</session>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move &apos;IBS-Application&apos; to &apos;IBS-AdminWeb&apos;" description="Move &apos;IBS-Application&apos; to &apos;IBS-AdminWeb&apos;" destination="/IBS-AdminWeb" element1="/IBS-Application/IBS-Application" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="1" stamp="1624938614773" updateReferences="true"/>
+</session>
