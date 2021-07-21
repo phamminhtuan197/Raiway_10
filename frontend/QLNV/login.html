@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Đăng nhập</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+</head>
+
+<body>
+
+    <div class="container" style="width: 70%;">
+        <br>
+        <br>
+        <br>
+        <h3>LOGIN</h3>
+        <br>
+
+        <div class="form-group">
+            <label for="userName">UserName:</label><br>
+            <input type="text" onkeyup="handKeyUpEventForSearching(event)" class="form-control" id="UserName_Login_ID" placeholder="Enter User Name" name="userName">
+        </div>
+        <div class="form-group">
+            <label for="pwd">Password:</label><br>
+            <input type="Password" onkeyup="handKeyUpEventForSearching(event)" class="form-control" id="Password_Login_ID" placeholder="Enter Password" name="pwd">
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox"  id="rememberme"> Remember me</label>
+        </div>
+        <button type="submit" class="btn btn-info" onclick="loginSuccess()">Login</button>
+        <button type="submit" class="btn btn-info" onclick="returnPageRegister()">Register</button>
+
+    </div>
+    <script type="text/javascript" src="QLNV_JS.js"></script>
+</body>
+
+</html>

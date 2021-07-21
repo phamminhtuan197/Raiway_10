@@ -1,0 +1,37 @@
+"use strict";
+exports.__esModule = true;
+var Account_1 = require("./Account");
+var Department_1 = require("./Department");
+var Position_1 = require("./Position");
+// Khai báo
+var dep1 = new Department_1.Department(1, "Sale");
+var dep2 = new Department_1.Department(2, "Kỹ Thuật");
+var dep3 = new Department_1.Department(3, "Phó giám đốc");
+var dep4 = new Department_1.Department(4, "Tài chính");
+var dep5 = new Department_1.Department(5, "Bảo vệ");
+console.log('----Thông tin phòng ban trên hệ thống----');
+// In ra thông tin đối tượng vừa tạo
+Department_1.printInfDepartment(dep1);
+Department_1.printInfDepartment(dep2);
+Department_1.printInfDepartment(dep3);
+Department_1.printInfDepartment(dep4);
+Department_1.printInfDepartment(dep5);
+var pos1 = new Position_1.Position(1, "Dev");
+var pos2 = new Position_1.Position(2, "Test");
+var pos3 = new Position_1.Position(3, "Scrum_Master");
+var pos4 = new Position_1.Position(4, "PM");
+Position_1.printInfPosition(pos1);
+Position_1.printInfPosition(pos2);
+Position_1.printInfPosition(pos3);
+Position_1.printInfPosition(pos4);
+var date = new Date("2021-07-13");
+var acc1 = new Account_1.Account(1, "phamminhtuan1@gmail.com", "phamminhtuan1", "pham minh tuan", dep1, pos1, date);
+var acc2 = new Account_1.Account(2, "phamminhtuan2@gmail.com", "phamminhtuan2", "tuan minh pham", dep2, pos2, date);
+var acc3 = new Account_1.Account(3, "phamminhtuan3@gmail.com", "phamminhtuan3", "pham tuan minh", dep3, pos3, date);
+var acc4 = new Account_1.Account(4, "phamminhtuan4@gmail.com", "phamminhtuan4", "pham minh minh", dep4, pos4, date);
+var acc5 = new Account_1.Account(5, "phamminhtuan5@gmail.com", "phamminhtuan5", "pham tuan tuan", dep5, pos1, date);
+Account_1.printInfAccount(acc1);
+Account_1.printInfAccount(acc2);
+Account_1.printInfAccount(acc3);
+Account_1.printInfAccount(acc4);
+Account_1.printInfAccount(acc5);

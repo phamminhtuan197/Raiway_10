@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>HTML LESSON 1</title>
+</head>
+
+<body>
+    <!-- thẻ Heading -->
+    <h1>Heading 1</h1>
+    <h2>Heading 2</h2>
+    <h3>Heading 3</h3>
+    <h4>Heading 4</h4>
+    <h5>Heading 5</h5>
+    <h6>Heading 6</h6>
+
+    <!-- Thẻ paragraph -->
+    <p>Không giữ lại khoảng trắng</p>
+    <pre>Giữ            lại             khoảng              trắng</pre>
+
+    <pre>
+        <!-- Thẻ in đậm -->
+        <b>không chứa thông tin quan trọng</b>
+        <strong>Chứa thông tin quan trọng</strong>
+
+        <!-- Thẻ in nghiêng -->
+        <i>không chứa inf quan trọng</i>
+        <em>chứa thông tin quan trọng</em>
+
+        <!-- Thẻ gạch chân -->
+        <u>gạch chân</u>
+        
+        <!-- Thẻ viết nhỏ -->
+        <h1>Định dạng chữ <small>nhỏ hơn</small> so với văn bản bình thường. </h1>
+
+        <!-- Thẻ viết to -->
+        <p>Học <big>Lập Trình Web</big> miễn phí</p>
+
+        <!-- Thẻ highlight -->
+        <mark>highlight text </mark>
+
+        <!-- Thẻ gạch ngang chữ -->
+        <s>gạch ngang</s>
+        <del>this text has been deleted</del>
+
+        <!-- Thẻ chỉ số -->
+        <p>chỉ số <sup>mũ</sup></P>
+        <p>Chỉ số <sub>dưới</sub></p>
+
+        <!-- Thẻ xác định thuật ngữ -->
+        <p><dfn>HTML</dfn> là một chuẩn ngôn ngữ đánh dấu dùng để tạo các trang web</p>
+
+        <!-- Thẻ xuống dòng -->
+        <p>Lập<br>Trình<br><br><br>Web</p>
+        <p>1 từ quá dài 
+            <wbr>brower sẽ xuống dòng không đúng 
+            <wbr>dùng wbr để tách các từ đó ra
+        </p>
+
+        <!-- Thẻ hiển thị tiêu đề, ẩn chi tiết -->
+        <!-- ẩn chi tiết -->
+        <details>
+            <summary>Loạt tài liệu hướng dẫn học Lập Trình Web gồm:</summary>
+            <pre>
+                <p>Tài liệu học HTML</p>
+                <p>Tài liệu học CSS</p>
+            </pre>
+    </details>
+    <!-- hiện sẵn chi tiết -->
+    <details open>
+        <summary>
+            Loạt tài liệu hướng dẫn học Lập Trình Web gồm:
+        </summary>
+        <pre>
+                <p>Tài liệu học HTML</p>
+                <p>Tài liệu học CSS</p>
+            </pre>
+    </details>
+
+    <!-- Thẻ xác định thông tin liên lạc -->
+    <address>
+        Được viết bởi: Phạm Minh Tuấn
+        Email: phamminhtuan197@gmail.com
+        Địa chỉ: Thanh Trì, Hà Nội
+    </address>
+
+    <!-- Thẻ trích dẫn, xác định 1 đoạn trích dẫn từ website khác -->
+    <!-- Cú pháp: <blockquote cite="url nguồn của đoạn trích dẫn">đoạn trích dẫn</blockquote> -->
+    <h3>Bên dưới là đoạn trích dẫn từ trang web </h3>
+    <blockquote
+        cite="https://www.24h.com.vn/bong-da/cuc-nong-haaland-chinh-thuc-len-tieng-ve-tuong-lai-mu-real-va-barca-soc-nang-c48a1256684.html">
+        Hiện tại, Haaland vẫn còn hợp đồng với Dortmund đến năm 2024 nhưng có điều khoản giải phóng 75 triệu euro có
+        hiệu lực vào mùa hè năm 2022.
+        Nhưng mới đây, tiền đạo người Na Uy cho biết anh sẽ tôn trọng hợp đồng đã ký với đội bóng nước Đức.
+    </blockquote>
+
+    <!-- Thẻ tiêu đề -->
+    <p><cite>Study 10 Plus</cite> trung tâm luyện thi môn Toán.</p>
+
+    <!-- Thẻ chia khối -->
+    <div>
+        Họ và tên: Phạm Minh Tuấn
+        Ngày sinh: 20/12/1997
+        Quê quán: Hà Nội
+    </div>
+
+    <!-- Thẻ hình ảnh, hình ảnh phải có server lưu ảnh -->
+    <img src="https://cdn.baogiaothong.vn/files/f1/2014/11/08/diem-tin-bong-da-toi-811-van-persie-soc-vi-bi-sir-alex-lua.jpg"
+        alt="Hình ảnh không tồn tại" height="800" width="800" />
+
+    <!-- Thẻ table -->
+    <table>
+        <tr>
+            <td>Hình ảnh</td>
+            <td>Tên cầu thủ</td>
+            <td>CLB đang thi đấu</td>
+        </tr>
+        <tr>
+            <td><img src="https://cdn.baogiaothong.vn/files/f1/2014/11/08/diem-tin-bong-da-toi-811-van-persie-soc-vi-bi-sir-alex-lua.jpg"
+                    alt="Hình ảnh không tồn tại" height="100" width="100" /></td>
+            <td>Robin van Persie</td>
+            <td>Đã giải nghệ</td>
+        </tr>
+        <tr>
+            <td><img src="https://vtv1.mediacdn.vn/thumb_w/650/2021/1/5/81kjxaqcolsl1500-1609822490510309859755-crop-16098224965071778186586.jpg"
+                    alt="Hình ảnh không tồn tại" height="100" width="100" /></td>
+            <td>Ronaldo</td>
+            <td>Juventus</td>
+        </tr>
+        <tr>
+            <td><img src="https://ichef.bbci.co.uk/news/640/cpsprodpb/1012B/production/_114253856_messi.jpg"
+                    height="100" width="100" /></td>
+            <td>Messi</td>
+            <td>Barca</td>
+        </tr>
+    </table>
+    <!-- Thuộc tính sự kiện: onblur -->
+    <!-- Thuộc tính pattern: kiểm tra tính hợp lệ của form -->
+    <!-- Thẻ label dùng để đặt nhãn để mô tả cho thẻ input -->
+    <!--    Gõ &nbsp; để chèn một khoảng trống.
+                Gõ &ensp; để chèn 2 khoảng trống.
+                Gõ &emsp; để chèn 4 khoảng trống.
+                Gõ &nbsp;&nbsp;&nbsp;&nbsp; để chèn tab. 
+        -->
+    <!-- Thẻ danh sách: ol- tạo danh sách có thứ tự, ul- danh sách không có thứ tự -->
+    <!-- Thẻ button dùng để tạo các nút click bên trong form của trang web hiển thị ra 1 thông báo -->
+    <!-- Thẻ picture -->
+    <!-- Thẻ iframe -->
+    </pre>
+
+
+</body>
+
+</html>

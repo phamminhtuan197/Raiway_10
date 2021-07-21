@@ -1,0 +1,157 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: Arial;
+    text-decoration: none;
+}
+main {
+    background-color: #f0f2f5;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding-top: 175px;
+    padding-left: 277px;
+    padding-bottom: 200px;
+    text-align: left;
+}
+#login-form {
+    border-radius: 10px;
+    box-shadow: 0px 4px 7px 0px rgb(187, 185, 185);
+    background-color: white;
+    padding: 17px 17px;
+    width: 400px;
+    height: 350px;
+    margin-right: 185px;
+    margin-top: -45px;
+    margin-left: -45px;
+}
+.form-input {
+    margin-bottom: 13px;
+}
+.form-input input {
+    font-size: 16px;
+    width: 100%;
+    padding: 15px 17px;
+    border-radius: 6px;
+    border: solid 2px #dddfe2;
+}
+.form-input input:focus {
+    border:solid 2px #85b8f8;
+    outline: none;
+    box-shadow: 0px 0px 4px #afcdf5;
+}
+.btn-submit {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 6px;
+    border: none;
+    font-size: 20px;
+    color: white;
+    background-color: rgb(24 119 242);
+    font-weight: bold;
+}
+.text-center {
+    text-align: center;
+}
+.btn-register {
+    background-color: #42b72a;
+    font-size: 18px;
+    color: white;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+    padding: 14px;
+}
+.text-bold {
+    font-weight: bold;
+    color: black;
+}
+.p4 {
+    padding-top: 15px;
+    padding-bottom: 17px;
+}
+#underline {
+    color: rgb(43 126 243);
+    text-decoration: none;
+}
+#underline:hover {
+    text-decoration: underline;
+}
+.remove-underline {
+    text-decoration: none;
+}
+.size {
+    margin-top: 27px;
+    margin-bottom: 10px;
+}
+#p1 {
+    padding-top: 27px;
+    font-size: 14px;
+    padding-left: 0px;
+    margin-left: -35px;
+}
+.p2 {
+    margin-left: -5px;
+}
+#img {
+    width: 48%; 
+    margin-left: -30px;
+}
+#p3 {
+    font-size: 28px;
+    margin-top: -12px;
+}
+#p5 {
+    padding-top: 10px;
+}
+#hr {
+    margin-top: 7px; 
+    background-color: #e0e3e6; 
+    border: none;
+    height: 1px;
+}
+.menu {
+    width: 1120;
+    height: 30px;
+    margin-left: 250px;
+    margin-right: 300px;
+    /* Hiển thị theo dòng cho các li */
+    display: flex;
+    align-items: center;
+    height: 100%;
+    text-align: left;
+    font-size: 12px;
+    margin-top: 8px;
+    
+    /* Sử dụng để cho menu cách lề 50px */
+}
+.menu ul {
+    padding: 8px 0px 0px;
+}
+.menu li {
+    /* bỏ các dấu chấm ở đầu */
+    list-style: none;
+    width: 250px;
+    height: 50%;
+    margin-left: 0px;
+}
+ .menu li a {
+    /* Bỏ gạch chân ở menu */
+    text-decoration: none;
+    /* Hiển thị theo khối để set chiều cao */
+
+    /* Tạo dấu gạch dọc phân cách giữa các menu */
+    /* border-right: #73acc9 solid 2px; */
+    /* Tạo màu cho chữ trong menu và in đậm chữ */
+    color: #1e85da;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+    /* tạo dãn cách chữ trong menu vào giữa */
+    padding-top: 10px;
+    
+}
+
+.link {
+    text-decoration: none;
+}

@@ -217,819 +217,826 @@ INSERT INTO examquestion (examID, questionID) VALUES
 (2, 2),
 (4, 4);
 
-##Câu 2
+-- ##Câu 2
+-- SELECT * FROM department;
+-- ##Câu 3
+-- SELECT departmentID FROM department WHERE departmentname='Sale';
+-- ##Câu 4
+-- SELECT * FROM `account` WHERE LENGTH(fullname) = (SELECT MAX(LENGTH(fullname)) FROM `account`);
+-- ##Câu 5
+-- SELECT * FROM `account` WHERE LENGTH(fullname) = (SELECT MAX(LENGTH(fullname)) FROM `account` WHERE departmentID=3);
+-- ##Câu 6
+-- SELECT groupname FROM `group` WHERE createdate < '2019/12/20';
+-- ##Câu 7
+-- SELECT questionID FROM answer GROUP BY questionID HAVING COUNT(questionID)>=4;
+-- ##Câu 8
+-- SELECT examID FROM exam WHERE duration >=60 AND createdate < '2019/12/20';
+-- ##Câu 9
+-- SELECT * FROM `group` ORDER BY createdate DESC LIMIT 5;
+-- ##Câu 10
+-- SELECT COUNT(accountID) AS 'Số nhân viên' FROM `account` WHERE departmentID=2;
+-- ##Câu 11
+-- SELECT fullname FROM `account` WHERE fullname LIKE 'D%o';
+-- ##Câu 12
+-- #DELETE FROM exam WHERE createdate < '2019/12/20';
+-- ##Câu 13
+-- #DELETE FROM question WHERE content LIKE 'Câu hỏi%';
+-- ##Câu 14
+-- UPDATE `account` SET fullname= 'Nguyễn Bá Lộc', email= 'loc.nguyenba@vti.com.vn' WHERE accountID=5;
+-- ##Câu 15
+-- UPDATE `groupaccount` SET groupID=4 WHERE accountID=5;
+
+-- ######################### TESTING SYSTEM 4 ##################################
+-- ##Câu 1
+-- SELECT 
+--     fullname, departmentID, departmentname
+-- FROM
+--     `account`
+--         LEFT JOIN
+--     department USING (departmentID);
+--     
+-- ##Câu 2
+-- SELECT 
+--     *
+-- FROM
+--     `account`
+--         RIGHT JOIN
+--     position USING (positionID)
+--         RIGHT JOIN
+--     department USING (departmentID);
+--     
+-- ##Câu 3
+-- SELECT 
+--     fullname
+-- FROM
+--     `account`
+--         JOIN
+--     position USING (positionID)
+-- WHERE
+--     positionname = 'DEV';
+--     
+-- ##Câu 4
+-- SELECT 
+--     departmentID, departmentname
+-- FROM
+--     department
+--         LEFT JOIN
+--     `account` USING (departmentID)
+-- GROUP BY departmentID
+-- HAVING COUNT(accountID) > 3;
+
+-- ##Câu 5
+-- SELECT 
+--     questionID,
+--     content,
+--     COUNT(examID) AS 'Số lượng bài kiểm tra'
+-- FROM
+--     question
+--         JOIN
+--     examquestion USING (questionID)
+-- GROUP BY questionID HAVING COUNT(examID) =(SELECT 
+--     MAX(a)
+-- FROM
+--     (SELECT 
+--         COUNT(examID) a
+--     FROM
+--         examquestion
+--     JOIN question USING (questionID)
+--     GROUP BY questionID) AS bang1);
+
+-- ##Câu 6
+-- SELECT 
+--     categoryID, categoryname, COUNT(questionID) AS 'so luong question'
+-- FROM
+--     categoryquestion 
+--         LEFT JOIN
+--     question  USING (categoryID)
+-- GROUP BY categoryID;
+
+-- ##Câu 7
+-- SELECT 
+--     questionID, content, COUNT(examID) AS 'So bai kiem tra'
+-- FROM
+--     question
+--         LEFT JOIN
+--     examquestion USING (questionID)
+--         LEFT JOIN
+--     exam USING (examID)
+-- GROUP BY questionID;
+
+-- ##Câu 8
+-- SELECT 
+--     q.questionID, q.content, COUNT(answerID) AS 'so cau tra loi'
+-- FROM
+--     question q
+--         LEFT JOIN
+--     answer a USING (questionID)
+-- GROUP BY q.questionID
+-- HAVING COUNT(answerID) = (SELECT 
+--         MAX(a)
+--     FROM
+--         (SELECT 
+--             COUNT(answerID) a
+--         FROM
+--             question
+--         LEFT JOIN answer USING (questionID)
+--         GROUP BY questionID) AS bangphu);
+-- ##Câu 9
+-- SELECT 
+--     g.groupID,
+--     g.groupname,
+--     COUNT(accountID) AS 'So luong account'
+-- FROM
+--     `group` g
+--         LEFT JOIN
+--     groupaccount USING (groupID)
+-- GROUP BY groupID;
+
+-- ##Câu 10
+-- SELECT 
+--     positionID, positionname, COUNT(accountID) AS 'So nguoi'
+-- FROM
+--     position
+--         LEFT JOIN
+--     `account` USING (positionID)
+-- GROUP BY positionID
+-- HAVING COUNT(accountID) = (SELECT 
+--         MAX(a)
+--     FROM
+--         (SELECT 
+--             COUNT(accountID) a
+--         FROM
+--             `account`
+--         RIGHT JOIN position USING (positionID)
+--         GROUP BY positionID) AS bangphu);
+--         
+-- ##Câu 11
+-- SELECT 
+--     *
+-- FROM
+--     department
+--         LEFT JOIN
+--     (SELECT 
+--         departmentID, COUNT(positionname) AS 'so nhan vien dev'
+--     FROM
+--         department
+--     JOIN `account` USING (departmentID)
+--     JOIN position USING (positionID)
+--     WHERE
+--         positionname = 'DEV'
+--     GROUP BY departmentID) AS bangdev USING (departmentID)
+--         LEFT JOIN
+--     (SELECT 
+--         departmentID, COUNT(positionname) AS 'So nhan vien test'
+--     FROM
+--         department
+--     JOIN `account` USING (departmentID)
+--     JOIN position USING (positionID)
+--     WHERE
+--         positionname = 'TEST'
+--     GROUP BY departmentID) AS bangtest USING (departmentID)
+--         LEFT JOIN
+--     (SELECT 
+--         departmentID,
+--             COUNT(positionID) AS 'So nhan vien Scum Master'
+--     FROM
+--         department
+--     JOIN `account` USING (departmentID)
+--     JOIN position USING (positionID)
+--     WHERE
+--         positionname = 'SCUM MASTER'
+--     GROUP BY departmentID) AS bangSM USING (departmentID)
+--         LEFT JOIN
+--     (SELECT 
+--         departmentID, COUNT(positionID) AS 'So nhan vien PM'
+--     FROM
+--         department
+--     JOIN `account` USING (departmentID)
+--     JOIN position USING (positionID)
+--     WHERE
+--         positionname = 'PM'
+--     GROUP BY departmentID) AS bangPM USING (departmentID)
+-- GROUP BY departmentID 
+-- ORDER BY departmentID;
+
+-- ##Câu 12
+-- SELECT 
+-- 	q.questionID, 
+-- 	q.content AS 'Nội dung', 
+-- 	c.categoryname AS 'Chủ đề', 
+-- 	t.typename 'Loại', 
+-- 	a.fullname AS 'Người tạo', 
+-- 	q.createdate AS 'Ngày tạo' 
+-- FROM 
+-- 		question q 
+-- 	LEFT JOIN categoryquestion c USING(categoryID) 
+--     LEFT JOIN typequestion t USING(typeID) 
+--     LEFT JOIN `account` a ON q.creatorID=a.accountID;
+
+-- ##Câu 13
+-- SELECT 
+-- 	t.*, 
+-- 	COUNT(questionID) AS 'Số lương câu hỏi' 
+-- FROM 
+-- 	typequestion t 
+-- 		JOIN question q USING(typeID) 
+-- GROUP BY t.typeID; 
+
+-- ##Câu 14 15
+-- SELECT 
+--     groupID, groupname
+-- FROM
+--     `group`
+--         LEFT JOIN
+--     groupaccount USING (groupID)
+-- WHERE
+--     accountID IS NULL;
+--     
+-- ##Câu 16
+-- SELECT 
+--     q.questionID, q.content
+-- FROM
+--     question q
+--         LEFT JOIN
+--     answer a USING (questionID)
+-- WHERE
+--     a.answerID IS NULL;
+--     
+-- ##Câu 17
+-- #a)
+-- SELECT 
+--     *
+-- FROM
+--     `account`
+--         JOIN
+--     groupaccount USING (accountID)
+-- WHERE
+--     groupID = 1;
+-- #b)
+-- SELECT 
+--     *
+-- FROM
+--     `account`
+--         JOIN
+--     groupaccount USING (accountID)
+-- WHERE
+--     groupID = 2;
+-- #c)
+-- SELECT * FROM (SELECT 
+--     *
+-- FROM
+--     `account`
+--         JOIN
+--     groupaccount USING (accountID)
+-- WHERE
+--     groupID = 1) AS bang1
+-- UNION ALL
+-- SELECT * FROM (SELECT 
+--     *
+-- FROM
+--     `account`
+--         JOIN
+--     groupaccount USING (accountID)
+-- WHERE
+--     groupID = 2) AS bang2;
+
+-- ##Câu 18
+-- #a)
+-- SELECT 
+--     groupID, groupname
+-- FROM
+--     `group`
+--         JOIN
+--     groupaccount USING (groupID)
+-- GROUP BY groupID
+-- HAVING COUNT(accountID) > 5;
+-- #b)
+-- SELECT 
+--     groupID, groupname
+-- FROM
+--     `group`
+--         JOIN
+--     groupaccount USING (groupID)
+-- GROUP BY groupID
+-- HAVING COUNT(accountID) < 7;
+-- #c)
+-- SELECT * FROM (SELECT 
+--     groupID, groupname
+-- FROM
+--     `group`
+--         JOIN
+--     groupaccount USING (groupID)
+-- GROUP BY groupID
+-- HAVING COUNT(accountID) > 5) AS bang1
+-- UNION
+-- SELECT * FROM (SELECT 
+--     groupID, groupname
+-- FROM
+--     `group`
+--         JOIN
+--     groupaccount USING (groupID)
+-- GROUP BY groupID
+-- HAVING COUNT(accountID) < 7) AS bang2;
+
+-- ################################################ TESTING SYSTEM 5 ###############################################################
+-- ##Câu 1
+-- CREATE VIEW danh_sach_nhan_vien_sale AS
+-- 	SELECT 
+-- 		a.fullname, d.departmentname
+-- 	FROM
+-- 		`account` a
+-- 			INNER JOIN
+-- 		department d USING (departmentID)
+-- 	WHERE
+-- 		departmentname = 'Sale';
+
+-- ##Câu 2
+-- CREATE VIEW account_tham_gia_nhieu_group_nhat AS
+-- SELECT 
+--     a.*, COUNT(groupID) AS 'Số group đã tham gia'
+-- FROM
+--     account a
+--         LEFT JOIN
+--     groupaccount USING (accountID)
+-- GROUP BY accountID
+-- HAVING COUNT(groupID) = (SELECT 
+--         MAX(a)
+--     FROM
+--         (SELECT 
+--             COUNT(groupID) a
+--         FROM
+--             account
+--         LEFT JOIN groupaccount USING (accountID)
+--         GROUP BY accountID) AS bangphu);
+--         
+-- ##Câu 3
+-- CREATE VIEW cau_hoi_content_dai AS
+-- SELECT questionID, content FROM question WHERE LENGTH(content) >17;
+-- #DELETE FROM cau_hoi_content_dai;
+
+-- ##Câu 4
+-- CREATE VIEW phong_ban_nhieu_nhan_vien_nhat AS
+-- SELECT 
+--     departmentID,
+--     departmentname,
+--     COUNT(accountID) AS 'Số nhân viên'
+-- FROM
+--     department
+--         LEFT JOIN
+--     account USING (departmentID)
+-- GROUP BY departmentID
+-- HAVING COUNT(accountID) = (SELECT 
+--         MAX(a)
+--     FROM
+--         (SELECT 
+--             COUNT(accountID) a
+--         FROM
+--             department
+--         LEFT JOIN account USING (departmentID)
+--         GROUP BY departmentID) AS bangphu);
+
+-- ##Câu 5
+-- CREATE VIEW cau_hoi_do_user_ho_Nguyen_tao AS
+-- SELECT 
+--     q.questionID, q.content, a.fullname
+-- FROM
+--     question q
+--         LEFT JOIN
+--     `account` a ON q.creatorID = a.accountID
+-- WHERE
+--     fullname LIKE 'Nguyễn%';
+--     
+--     ############################################# TESTING SYSTEM 6 ######################################################################
+--     
+--     ##Câu 1
+-- DROP PROCEDURE IF EXISTS indepartment_outaccount;
+-- DELIMITER $$
+-- CREATE PROCEDURE indepartment_outaccount(IN ten_phong VARCHAR(50))
+-- BEGIN
+--     SELECT *
+-- 	FROM
+-- 		`account` a
+-- 			INNER JOIN
+-- 		department d USING (departmentID)
+-- 	WHERE
+-- 		d.departmentname = ten_phong;
+-- END$$
+-- DELIMITER ;
+-- CALL indepartment_outaccount('Marketing');
+
+-- ##Câu 2
+-- DROP PROCEDURE IF EXISTS cau2;
+-- DELIMITER $$
+-- CREATE PROCEDURE cau2(IN id_group INT UNSIGNED)
+-- BEGIN
+-- 		SELECT 
+-- 		g.groupID, g.groupname, COUNT(accountID) AS 'Số account'
+-- 	FROM
+-- 		groupaccount ga
+-- 			RIGHT JOIN
+-- 	   `group` g USING (groupID) WHERE g.groupID=id_group
+-- 	GROUP BY g.groupID;
+-- END$$
+-- DELIMITER ;
+-- CALL cau2(1);
+-- ##Câu 3
+-- DROP PROCEDURE IF EXISTS cau3;
+-- DELIMITER $$
+-- CREATE PROCEDURE cau3(IN loai_cau_hoi ENUM('Essay', 'Multiple-Choice'))
+-- BEGIN
+-- 		SELECT 
+-- 		t.*, COUNT(questionID) AS 'Số câu hỏi'
+-- 	FROM
+-- 		typequestion t
+-- 			INNER JOIN
+-- 		question q USING (typeID)
+-- 	WHERE
+-- 		typename = loai_cau_hoi
+-- 			AND MONTH(createdate) = MONTH(NOW())
+-- 			AND YEAR(createdate) = YEAR(NOW())
+-- 	GROUP BY typeID;
+-- END$$
+-- DELIMITER ;
+-- CALL cau3('Essay');
+
+-- ##Câu 4
+-- DROP PROCEDURE IF EXISTS cau4;
+-- DELIMITER $$
+-- CREATE PROCEDURE cau4(OUT typeID_nhieu_cau_hoi_nhat INT UNSIGNED)
+-- BEGIN
+--     SELECT 
+-- 		typeID INTO typeID_nhieu_cau_hoi_nhat
+-- 	FROM
+-- 		typequestion
+-- 			INNER JOIN
+-- 		question USING (typeID)
+-- 	GROUP BY typeID
+-- 	HAVING COUNT(questionID) = (SELECT 
+-- 			MAX(a)
+-- 		FROM
+-- 			(SELECT 
+-- 				COUNT(questionID) a
+-- 			FROM
+-- 				question
+-- 			INNER JOIN typequestion USING (typeID)
+-- 			GROUP BY typeID) AS bangphu);
+-- END$$
+-- DELIMITER ;
+-- SET @x=0;
+-- CALL cau4(@x);
+-- SELECT @x;
+
+-- ##Câu 5
+-- DROP PROCEDURE IF EXISTS cau5;
+-- DELIMITER $$
+-- CREATE PROCEDURE cau5 (IN id_type INT UNSIGNED)
+-- BEGIN
+-- 	 SELECT 
+-- 		typename
+-- 	FROM
+-- 		typequestion
+-- 	WHERE
+-- 		typeID = id_type;
+--  END$$
+--  DELIMITER ;
+--  CALL cau5(2);
+--  
+-- ##Câu 6
+-- DROP PROCEDURE IF EXISTS cau6;
+-- DELIMITER $$
+-- CREATE PROCEDURE cau6(IN nhap_chuoi VARCHAR(20))
+-- BEGIN
+--  SELECT groupname AS result FROM `group` WHERE groupname LIKE CONCAT('%',nhap_chuoi,'%') UNION ALL
+--  SELECT username AS result FROM `account` WHERE username LIKE CONCAT('%',nhap_chuoi,'%');
+-- END$$
+-- DELIMITER ;
+-- CALL cau6('group');
+
+-- ##Câu 7
+-- DROP PROCEDURE IF EXISTS cau7;
+-- DELIMITER $$
+-- CREATE PROCEDURE cau7( IN p_fullname VARCHAR(50), IN p_email VARCHAR(50))
+-- BEGIN
+-- 	DECLARE v_username VARCHAR(50) DEFAULT SUBSTRING_INDEX(p_email,'@',1);
+--     DECLARE v_positionID INT UNSIGNED DEFAULT (SELECT positionID a FROM position WHERE positionname='DEV');
+--     DECLARE v_departmentID INT UNSIGNED DEFAULT (SELECT departmentID b FROM department WHERE departmentname='waiting department');
+--     DECLARE v_createdate DATE DEFAULT CURDATE();
+--     INSERT INTO `account` VALUES (accountID, p_email, v_username, p_fullname, v_departmentID, v_positionID, v_createdate);
+--     SELECT * FROM `account` WHERE fullname=p_fullname;
+-- END$$	
+-- DELIMITER ;
+-- #CALL cau7('pham minh tuan','phamminhtuan@gmail.com');
+
+-- ##Câu 8
+-- DROP PROCEDURE IF EXISTS cau8;
+-- DELIMITER $$
+-- CREATE PROCEDURE cau8(IN v_type_question ENUM('Essay', 'Multiple-Choice'))
+-- BEGIN
+-- 	SELECT 
+--     questionID, content, typename, LENGTH(content)
+-- FROM
+--     question
+--         INNER JOIN
+--     typequestion USING (typeID)
+-- WHERE
+--     typename = v_type_question
+--         AND LENGTH(content) = (SELECT 
+--             MAX(a)
+--         FROM
+--             (SELECT 
+--                 LENGTH(content) a
+--             FROM
+--                 question) AS bang3);
+-- END$$
+-- DELIMITER ;
+-- CALL cau8('Multiple-Choice');
+
+-- ##Câu 9 
+-- DROP PROCEDURE IF EXISTS cau9;
+-- DELIMITER $$
+-- CREATE PROCEDURE cau9(IN v_examID INT UNSIGNED)
+-- BEGIN
+-- 	DELETE FROM exam WHERE examID=v_examID;
+-- END$$
+-- DELIMITER ;
+
+-- ##Câu 10
+-- DROP PROCEDURE IF EXISTS cau10;
+-- DELIMITER $$
+-- CREATE PROCEDURE cau10(OUT amount_of_record_deleted INT)
+-- BEGIN
+-- DECLARE id_of_exam_created_3year_ago INT UNSIGNED;
+-- SELECT examID INTO id_of_exam_created_3year_ago FROM exam WHERE YEAR(createdate)=YEAR(NOW())-3;
+-- #DELETE FROM exam WHERE examID=id_of_exam_created_3year_ago;
+-- SELECT ROW_COUNT() INTO amount_of_record_deleted;
+-- END$$
+-- DELIMITER ;
+-- SET @amount_record=0;
+-- CALL cau10(@amount_record);
+-- SELECT @amount_record;
+
+-- ##Câu 11
+-- DROP PROCEDURE IF EXISTS cau11;
+-- DELIMITER $$
+-- CREATE PROCEDURE cau11(IN v_departmentname VARCHAR(50))
+-- BEGIN
+-- DECLARE id_choviec INT;
+-- SELECT departmentID INTO id_choviec FROM department WHERE departmentname='waiting department';
+-- #UPDATE `account` SET departmentID= id_choviec WHERE departmentID=(SELECT departmentID FROM department WHERE departmentname=v_departmentname);
+-- #DELETE FROM department WHERE departmentname=v_departmentname;
+-- END$$
+-- DELIMITER ;
+-- #CALL cau11('kho');
+
+-- ##Câu 12
+-- DROP PROCEDURE IF EXISTS cau12;
+-- DELIMITER $$
+-- CREATE PROCEDURE cau12()
+-- BEGIN
+-- 	SELECT MONTH(createdate) AS 'Tháng', COUNT(questionID) AS 'Số câu hỏi' FROM question WHERE YEAR(createdate)=YEAR(NOW()) GROUP BY MONTH(createdate);
+-- END$$
+-- DELIMITER ;
+-- CALL cau12();
+
+-- ##Câu 13
+-- DROP PROCEDURE IF EXISTS cau13;
+-- DELIMITER $$
+-- CREATE PROCEDURE cau13()
+-- BEGIN
+-- 	SELECT six_month_ago.*, COUNT(questionID) AS number_question,
+--     CASE 
+-- 		WHEN COUNT(questionID)=0 THEN 'không có câu hỏi nào trong tháng'
+--         ELSE ''
+-- 	END AS NOTE
+--     FROM(
+-- 		SELECT YEAR(NOW()) AS `YEAR`, MONTH(NOW()) AS `MONTH`
+--     UNION
+-- 		SELECT YEAR(DATE_SUB((NOW()), INTERVAL 1 MONTH)) AS `YEAR`, MONTH(DATE_SUB((NOW()), INTERVAL 1 MONTH)) AS `MONTH`
+--     UNION
+--        SELECT YEAR(DATE_SUB((NOW()), INTERVAL 2 MONTH)) AS `YEAR`, MONTH(DATE_SUB((NOW()), INTERVAL 2 MONTH)) AS `MONTH`
+-- 	UNION
+--        SELECT YEAR(DATE_SUB((NOW()), INTERVAL 3 MONTH)) AS `YEAR`, MONTH(DATE_SUB((NOW()), INTERVAL 3 MONTH)) AS `MONTH`
+-- 	UNION
+--        SELECT YEAR(DATE_SUB((NOW()), INTERVAL 4 MONTH)) AS `YEAR`, MONTH(DATE_SUB((NOW()), INTERVAL 4 MONTH)) AS `MONTH`
+-- 	UNION
+--        SELECT YEAR(DATE_SUB((NOW()), INTERVAL 5 MONTH)) AS `YEAR`, MONTH(DATE_SUB((NOW()), INTERVAL 5 MONTH)) AS `MONTH`
+-- 	UNION
+--        SELECT YEAR(DATE_SUB((NOW()), INTERVAL 6 MONTH)) AS `YEAR`, MONTH(DATE_SUB((NOW()), INTERVAL 6 MONTH)) AS `MONTH`
+--        ) AS six_month_ago
+--     LEFT JOIN question ON six_month_ago.`MONTH`=MONTH(createdate) GROUP BY six_month_ago.`MONTH`;
+-- END$$
+-- DELIMITER ;
+-- CALL cau13();
+
+-- ################################################## TESTING SYSTEM 7 ################################################################
+
+-- #Câu 1
+-- DROP TRIGGER IF EXISTS trigger_insert_group;
+-- DELIMITER $$
+-- CREATE TRIGGER trigger_insert_group
+-- BEFORE INSERT ON `group`
+-- FOR EACH ROW
+-- BEGIN
+-- 	IF NEW.createdate < DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR) THEN 
+-- 		SIGNAL SQLSTATE '12345'
+--         SET MESSAGE_TEXT='cannot add data to Groups with create date 1 year ago';
+-- 	END IF;
+-- END$$
+-- DELIMITER ;
+
+-- #Câu 2
+-- DROP TRIGGER IF EXISTS trigger_insert_user;
+-- DELIMITER $$
+-- CREATE TRIGGER trigger_insert_user
+-- BEFORE INSERT ON `account`
+-- FOR EACH ROW
+-- BEGIN
+-- 	IF NEW.departmentID=(SELECT departmentID FROM department WHERE departmentname='Sale') THEN
+-- 		SIGNAL SQLSTATE '12345'
+--         SET MESSAGE_TEXT="Department Sale cannot add more user";
+-- 	END IF;
+-- END$$
+-- DELIMITER ;
+
+-- #Câu 3
+-- DROP TRIGGER IF EXISTS trigger_5user;
+-- DELIMITER $$
+-- CREATE TRIGGER trigger_5user
+-- BEFORE INSERT ON groupaccount
+-- FOR EACH ROW
+-- BEGIN
+-- 	DECLARE amount_user INT;
+--     SELECT COUNT(accountID) INTO amount_user FROM groupaccount WHERE groupID=NEW.groupID GROUP BY groupID;
+--     IF amount_user > 5 THEN
+-- 		SIGNAL SQLSTATE '12345'
+--         SET MESSAGE_TEXT='the number of group members cannot be more than 5';
+-- 	END IF;
+-- END$$
+-- DELIMITER ;
+
+-- #Câu 4
+-- DROP TRIGGER IF EXISTS trigger_10question;
+-- DELIMITER $$
+-- CREATE TRIGGER trigger_10question
+-- BEFORE INSERT ON examquestion
+-- FOR EACH ROW
+-- BEGIN
+-- 	DECLARE amount_question INT;
+--     SELECT COUNT(questionID) INTO amount_question FROM examquestion WHERE examID=NEW.examID GROUP BY examID;
+--     IF amount_question >10 THEN
+-- 		SIGNAL SQLSTATE '12345'
+--         SET MESSAGE_TEXT='the number of question cannot be more than 10';
+-- 	END IF;
+-- END$$
+-- DELIMITER ;
+
+-- #Câu 5
+-- DROP TRIGGER IF EXISTS cancel_del_account;
+-- DELIMITER $$
+-- CREATE TRIGGER cancel_del_account
+-- BEFORE DELETE ON `account` 
+-- FOR EACH ROW
+-- BEGIN
+-- DECLARE v_accountID INT;
+-- SELECT accountID INTO v_accountID FROM `account` WHERE email=OLD.email;
+-- 	IF OLD.email= 'admin@gmail.com' THEN 
+-- 		SIGNAL SQLSTATE '12345'
+--         SET MESSAGE_TEXT='cannot delete this account';
+-- 	#ELSE 
+-- 		#DELETE FROM `account` WHERE accountID=v_accountID;
+--         #DELETE FROM `group` WHERE creatorID=v_accountID;
+--         #DELETE FROM exam WHERE creatorID=v_accountID;
+--        # DELETE FROM question WHERE creatorID=v_accountID;
+-- 	END IF;
+-- END$$
+-- DELIMITER ;
+
+-- #Câu 6
+-- DROP TRIGGER IF EXISTS auto_waiting_department;
+-- DELIMITER $$
+-- CREATE TRIGGER auto_waiting_department
+-- BEFORE INSERT ON `account` FOR EACH ROW
+-- BEGIN
+-- 	IF NEW.departmentID IS NULL THEN SET NEW.departmentID= (SELECT departmentID FROM department WHERE departmentname='waiting department');
+--     END IF;
+-- END$$
+-- DELIMITER ;
+
+-- #Câu 7
+-- DROP TRIGGER IF EXISTS create_answer;
+-- DELIMITER $$
+-- CREATE TRIGGER create_answer
+-- BEFORE INSERT ON answer FOR EACH ROW
+-- BEGIN
+-- DECLARE amount_answer INT;
+-- DECLARE amount_correct_answer INT;
+-- SELECT COUNT(answerID) AS 'số câu trả lời' INTO amount_answer FROM answer INNER JOIN question USING(questionID) WHERE questionID=NEW.questionID GROUP BY questionID;
+-- SELECT COUNT(answerID) AS 'số câu trả lời đúng' INTO amount_correct_answer FROM answer INNER JOIN question USING(questionID) WHERE questionID=NEW.questionID AND iscorrect='True' GROUP BY questionID;
+-- IF amount_answer >4 THEN 
+-- 	SIGNAL SQLSTATE '12345'
+--     SET MESSAGE_TEXT='Only a maximum of 4 responses can be created';
+-- END IF;
+-- IF amount_correct_answer >2 THEN 
+-- 	SIGNAL SQLSTATE '12345'
+--     SET MESSAGE_TEXT='only a maximum of 2 correct answers';
+-- END IF;
+-- END$$
+-- DELIMITER ;
+
+-- #Câu 8
+-- ALTER TABLE `account` ADD gender ENUM('M','F','U') DEFAULT 'U';
+-- DROP TRIGGER IF EXISTS fix_gender_data;
+-- DELIMITER $$
+-- CREATE TRIGGER fix_gender_data
+-- BEFORE INSERT ON `account` FOR EACH ROW
+-- BEGIN
+-- 	IF NEW.gender='male' THEN SET NEW.gender='M';
+-- 	ELSEIF NEW.gender='female' THEN SET NEW.gender='F';
+-- 	ELSEIF NEW.gender='unknow' THEN SET NEW.gender='U';
+--     END IF;
+-- END$$
+-- DELIMITER ;
+
+-- #Câu 9
+-- DROP TRIGGER IF EXISTS cancel_del_exam;
+-- DELIMITER $$
+-- CREATE TRIGGER cancel_del_exam
+-- BEFORE DELETE ON exam FOR EACH ROW
+-- BEGIN
+--     IF OLD.createdate = DATE_SUB(CURRENT_DATE(), INTERVAL 2 DAY) THEN 
+--     SIGNAL SQLSTATE '12345'
+--     SET MESSAGE_TEXT='Can not delete the newly created exam 2 days ago';
+--     END IF;
+-- END$$
+-- DELIMITER ;
+
+-- #Câu 10
+-- DROP TRIGGER IF EXISTS update_question;
+-- DELIMITER $$
+-- CREATE TRIGGER update_question
+-- BEFORE UPDATE ON question FOR EACH ROW
+-- BEGIN
+-- 	DECLARE questionID_update INT;
+--     SELECT q.questionID INTO questionID_update FROM question q JOIN examquestion e USING(questionID) WHERE q.questionID = e.questionID GROUP BY questionID;
+--     IF OLD.questionID = questionID_update THEN 
+--     SIGNAL SQLSTATE '12345'
+--     SET MESSAGE_TEXT='cannot update this question bacause it was in an exam';
+--     END IF;
+-- END$$
+-- DELIMITER ;
+
+-- DROP TRIGGER IF EXISTS delete_question;
+-- DELIMITER $$
+-- CREATE TRIGGER delete_question
+-- BEFORE DELETE ON question FOR EACH ROW
+-- BEGIN
+-- 	DECLARE questionID_delete INT;
+--     SELECT q.questionID INTO questionID_delete FROM question q JOIN examquestion e USING(questionID) WHERE q.questionID = e.questionID GROUP BY questionID;
+--     IF OLD.questionID = questionID_delete THEN 
+--     SIGNAL SQLSTATE '12345'
+--     SET MESSAGE_TEXT='cannot delete this question bacause it was in an exam';
+--     END IF;
+-- END$$
+-- DELIMITER ;
+
+-- SELECT 
+--     *,
+--     CASE
+--         WHEN duration <= 30 THEN 'short time'
+--         WHEN duration > 30 AND duration <= 60 THEN 'medium time'
+--         ELSE 'long time'
+--     END AS type_duration
+-- FROM exam;
+
+-- #Câu 13
+-- SELECT groupID, groupname, COUNT(accountID) AS 'number_user',
+-- CASE 
+-- 	WHEN COUNT(accountID) <=5 THEN 'few'
+--     WHEN 5< COUNT(accountID) <=20 THEN 'normal'
+--     ELSE 'higher'
+-- END AS the_number_user_amount
+-- FROM groupaccount INNER JOIN `group` USING(groupID) GROUP BY groupID;
+
+-- #Câu 14
+-- SELECT departmentID, departmentname, COUNT(accountID) AS 'number_user',
+-- CASE 
+-- 	WHEN COUNT(accountID) =0 THEN 'không có user'
+--     ELSE ''
+-- END AS note
+-- FROM department LEFT JOIN `account` USING(departmentID) GROUP BY departmentID;
+
+-- #deleteDepartment
+-- DROP PROCEDURE IF EXISTS sp_delete_department;
+-- DELIMITER $$
+-- CREATE PROCEDURE sp_delete_department(IN v_departmentID INT)
+-- BEGIN
+-- 	DELETE FROM department WHERE departmentID = v_departmentID;
+-- END $$
+-- DELIMITER ;
+
 SELECT * FROM department;
-##Câu 3
-SELECT departmentID FROM department WHERE departmentname='Sale';
-##Câu 4
+SELECT departmentID FROM department WHERE departmentName = "Sale";
 SELECT * FROM `account` WHERE LENGTH(fullname) = (SELECT MAX(LENGTH(fullname)) FROM `account`);
-##Câu 5
-SELECT * FROM `account` WHERE LENGTH(fullname) = (SELECT MAX(LENGTH(fullname)) FROM `account` WHERE departmentID=3);
-##Câu 6
-SELECT groupname FROM `group` WHERE createdate < '2019/12/20';
-##Câu 7
-SELECT questionID FROM answer GROUP BY questionID HAVING COUNT(questionID)>=4;
-##Câu 8
-SELECT examID FROM exam WHERE duration >=60 AND createdate < '2019/12/20';
-##Câu 9
-SELECT * FROM `group` ORDER BY createdate DESC LIMIT 5;
-##Câu 10
-SELECT COUNT(accountID) AS 'Số nhân viên' FROM `account` WHERE departmentID=2;
-##Câu 11
-SELECT fullname FROM `account` WHERE fullname LIKE 'D%o';
-##Câu 12
-#DELETE FROM exam WHERE createdate < '2019/12/20';
-##Câu 13
-#DELETE FROM question WHERE content LIKE 'Câu hỏi%';
-##Câu 14
-UPDATE `account` SET fullname= 'Nguyễn Bá Lộc', email= 'loc.nguyenba@vti.com.vn' WHERE accountID=5;
-##Câu 15
-UPDATE `groupaccount` SET groupID=4 WHERE accountID=5;
-
-######################### TESTING SYSTEM 4 ##################################
-##Câu 1
-SELECT 
-    fullname, departmentID, departmentname
-FROM
-    `account`
-        LEFT JOIN
-    department USING (departmentID);
-    
-##Câu 2
-SELECT 
-    *
-FROM
-    `account`
-        RIGHT JOIN
-    position USING (positionID)
-        RIGHT JOIN
-    department USING (departmentID);
-    
-##Câu 3
-SELECT 
-    fullname
-FROM
-    `account`
-        JOIN
-    position USING (positionID)
-WHERE
-    positionname = 'DEV';
-    
-##Câu 4
-SELECT 
-    departmentID, departmentname
-FROM
-    department
-        LEFT JOIN
-    `account` USING (departmentID)
-GROUP BY departmentID
-HAVING COUNT(accountID) > 3;
-
-##Câu 5
-SELECT 
-    questionID,
-    content,
-    COUNT(examID) AS 'Số lượng bài kiểm tra'
-FROM
-    question
-        JOIN
-    examquestion USING (questionID)
-GROUP BY questionID HAVING COUNT(examID) =(SELECT 
-    MAX(a)
-FROM
-    (SELECT 
-        COUNT(examID) a
-    FROM
-        examquestion
-    JOIN question USING (questionID)
-    GROUP BY questionID) AS bang1);
-
-##Câu 6
-SELECT 
-    categoryID, categoryname, COUNT(questionID) AS 'so luong question'
-FROM
-    categoryquestion 
-        LEFT JOIN
-    question  USING (categoryID)
-GROUP BY categoryID;
-
-##Câu 7
-SELECT 
-    questionID, content, COUNT(examID) AS 'So bai kiem tra'
-FROM
-    question
-        LEFT JOIN
-    examquestion USING (questionID)
-        LEFT JOIN
-    exam USING (examID)
-GROUP BY questionID;
-
-##Câu 8
-SELECT 
-    q.questionID, q.content, COUNT(answerID) AS 'so cau tra loi'
-FROM
-    question q
-        LEFT JOIN
-    answer a USING (questionID)
-GROUP BY q.questionID
-HAVING COUNT(answerID) = (SELECT 
-        MAX(a)
-    FROM
-        (SELECT 
-            COUNT(answerID) a
-        FROM
-            question
-        LEFT JOIN answer USING (questionID)
-        GROUP BY questionID) AS bangphu);
-##Câu 9
-SELECT 
-    g.groupID,
-    g.groupname,
-    COUNT(accountID) AS 'So luong account'
-FROM
-    `group` g
-        LEFT JOIN
-    groupaccount USING (groupID)
-GROUP BY groupID;
-
-##Câu 10
-SELECT 
-    positionID, positionname, COUNT(accountID) AS 'So nguoi'
-FROM
-    position
-        LEFT JOIN
-    `account` USING (positionID)
-GROUP BY positionID
-HAVING COUNT(accountID) = (SELECT 
-        MAX(a)
-    FROM
-        (SELECT 
-            COUNT(accountID) a
-        FROM
-            `account`
-        RIGHT JOIN position USING (positionID)
-        GROUP BY positionID) AS bangphu);
-        
-##Câu 11
-SELECT 
-    *
-FROM
-    department
-        LEFT JOIN
-    (SELECT 
-        departmentID, COUNT(positionname) AS 'so nhan vien dev'
-    FROM
-        department
-    JOIN `account` USING (departmentID)
-    JOIN position USING (positionID)
-    WHERE
-        positionname = 'DEV'
-    GROUP BY departmentID) AS bangdev USING (departmentID)
-        LEFT JOIN
-    (SELECT 
-        departmentID, COUNT(positionname) AS 'So nhan vien test'
-    FROM
-        department
-    JOIN `account` USING (departmentID)
-    JOIN position USING (positionID)
-    WHERE
-        positionname = 'TEST'
-    GROUP BY departmentID) AS bangtest USING (departmentID)
-        LEFT JOIN
-    (SELECT 
-        departmentID,
-            COUNT(positionID) AS 'So nhan vien Scum Master'
-    FROM
-        department
-    JOIN `account` USING (departmentID)
-    JOIN position USING (positionID)
-    WHERE
-        positionname = 'SCUM MASTER'
-    GROUP BY departmentID) AS bangSM USING (departmentID)
-        LEFT JOIN
-    (SELECT 
-        departmentID, COUNT(positionID) AS 'So nhan vien PM'
-    FROM
-        department
-    JOIN `account` USING (departmentID)
-    JOIN position USING (positionID)
-    WHERE
-        positionname = 'PM'
-    GROUP BY departmentID) AS bangPM USING (departmentID)
-GROUP BY departmentID 
-ORDER BY departmentID;
-
-##Câu 12
-SELECT 
-	q.questionID, 
-	q.content AS 'Nội dung', 
-	c.categoryname AS 'Chủ đề', 
-	t.typename 'Loại', 
-	a.fullname AS 'Người tạo', 
-	q.createdate AS 'Ngày tạo' 
-FROM 
-		question q 
-	LEFT JOIN categoryquestion c USING(categoryID) 
-    LEFT JOIN typequestion t USING(typeID) 
-    LEFT JOIN `account` a ON q.creatorID=a.accountID;
-
-##Câu 13
-SELECT 
-	t.*, 
-	COUNT(questionID) AS 'Số lương câu hỏi' 
-FROM 
-	typequestion t 
-		JOIN question q USING(typeID) 
-GROUP BY t.typeID; 
-
-##Câu 14 15
-SELECT 
-    groupID, groupname
-FROM
-    `group`
-        LEFT JOIN
-    groupaccount USING (groupID)
-WHERE
-    accountID IS NULL;
-    
-##Câu 16
-SELECT 
-    q.questionID, q.content
-FROM
-    question q
-        LEFT JOIN
-    answer a USING (questionID)
-WHERE
-    a.answerID IS NULL;
-    
-##Câu 17
-#a)
-SELECT 
-    *
-FROM
-    `account`
-        JOIN
-    groupaccount USING (accountID)
-WHERE
-    groupID = 1;
-#b)
-SELECT 
-    *
-FROM
-    `account`
-        JOIN
-    groupaccount USING (accountID)
-WHERE
-    groupID = 2;
-#c)
-SELECT * FROM (SELECT 
-    *
-FROM
-    `account`
-        JOIN
-    groupaccount USING (accountID)
-WHERE
-    groupID = 1) AS bang1
-UNION ALL
-SELECT * FROM (SELECT 
-    *
-FROM
-    `account`
-        JOIN
-    groupaccount USING (accountID)
-WHERE
-    groupID = 2) AS bang2;
-
-##Câu 18
-#a)
-SELECT 
-    groupID, groupname
-FROM
-    `group`
-        JOIN
-    groupaccount USING (groupID)
-GROUP BY groupID
-HAVING COUNT(accountID) > 5;
-#b)
-SELECT 
-    groupID, groupname
-FROM
-    `group`
-        JOIN
-    groupaccount USING (groupID)
-GROUP BY groupID
-HAVING COUNT(accountID) < 7;
-#c)
-SELECT * FROM (SELECT 
-    groupID, groupname
-FROM
-    `group`
-        JOIN
-    groupaccount USING (groupID)
-GROUP BY groupID
-HAVING COUNT(accountID) > 5) AS bang1
-UNION
-SELECT * FROM (SELECT 
-    groupID, groupname
-FROM
-    `group`
-        JOIN
-    groupaccount USING (groupID)
-GROUP BY groupID
-HAVING COUNT(accountID) < 7) AS bang2;
-
-################################################ TESTING SYSTEM 5 ###############################################################
-##Câu 1
-CREATE VIEW danh_sach_nhan_vien_sale AS
-	SELECT 
-		a.fullname, d.departmentname
-	FROM
-		`account` a
-			INNER JOIN
-		department d USING (departmentID)
-	WHERE
-		departmentname = 'Sale';
-
-##Câu 2
-CREATE VIEW account_tham_gia_nhieu_group_nhat AS
-SELECT 
-    a.*, COUNT(groupID) AS 'Số group đã tham gia'
-FROM
-    account a
-        LEFT JOIN
-    groupaccount USING (accountID)
-GROUP BY accountID
-HAVING COUNT(groupID) = (SELECT 
-        MAX(a)
-    FROM
-        (SELECT 
-            COUNT(groupID) a
-        FROM
-            account
-        LEFT JOIN groupaccount USING (accountID)
-        GROUP BY accountID) AS bangphu);
-        
-##Câu 3
-CREATE VIEW cau_hoi_content_dai AS
-SELECT questionID, content FROM question WHERE LENGTH(content) >17;
-#DELETE FROM cau_hoi_content_dai;
-
-##Câu 4
-CREATE VIEW phong_ban_nhieu_nhan_vien_nhat AS
-SELECT 
-    departmentID,
-    departmentname,
-    COUNT(accountID) AS 'Số nhân viên'
-FROM
-    department
-        LEFT JOIN
-    account USING (departmentID)
-GROUP BY departmentID
-HAVING COUNT(accountID) = (SELECT 
-        MAX(a)
-    FROM
-        (SELECT 
-            COUNT(accountID) a
-        FROM
-            department
-        LEFT JOIN account USING (departmentID)
-        GROUP BY departmentID) AS bangphu);
-
-##Câu 5
-CREATE VIEW cau_hoi_do_user_ho_Nguyen_tao AS
-SELECT 
-    q.questionID, q.content, a.fullname
-FROM
-    question q
-        LEFT JOIN
-    `account` a ON q.creatorID = a.accountID
-WHERE
-    fullname LIKE 'Nguyễn%';
-    
-    ############################################# TESTING SYSTEM 6 ######################################################################
-    
-    ##Câu 1
-DROP PROCEDURE IF EXISTS indepartment_outaccount;
-DELIMITER $$
-CREATE PROCEDURE indepartment_outaccount(IN ten_phong VARCHAR(50))
-BEGIN
-    SELECT *
-	FROM
-		`account` a
-			INNER JOIN
-		department d USING (departmentID)
-	WHERE
-		d.departmentname = ten_phong;
-END$$
-DELIMITER ;
-CALL indepartment_outaccount('Marketing');
-
-##Câu 2
-DROP PROCEDURE IF EXISTS cau2;
-DELIMITER $$
-CREATE PROCEDURE cau2(IN id_group INT UNSIGNED)
-BEGIN
-		SELECT 
-		g.groupID, g.groupname, COUNT(accountID) AS 'Số account'
-	FROM
-		groupaccount ga
-			RIGHT JOIN
-	   `group` g USING (groupID) WHERE g.groupID=id_group
-	GROUP BY g.groupID;
-END$$
-DELIMITER ;
-CALL cau2(1);
-##Câu 3
-DROP PROCEDURE IF EXISTS cau3;
-DELIMITER $$
-CREATE PROCEDURE cau3(IN loai_cau_hoi ENUM('Essay', 'Multiple-Choice'))
-BEGIN
-		SELECT 
-		t.*, COUNT(questionID) AS 'Số câu hỏi'
-	FROM
-		typequestion t
-			INNER JOIN
-		question q USING (typeID)
-	WHERE
-		typename = loai_cau_hoi
-			AND MONTH(createdate) = MONTH(NOW())
-			AND YEAR(createdate) = YEAR(NOW())
-	GROUP BY typeID;
-END$$
-DELIMITER ;
-CALL cau3('Essay');
-
-##Câu 4
-DROP PROCEDURE IF EXISTS cau4;
-DELIMITER $$
-CREATE PROCEDURE cau4(OUT typeID_nhieu_cau_hoi_nhat INT UNSIGNED)
-BEGIN
-    SELECT 
-		typeID INTO typeID_nhieu_cau_hoi_nhat
-	FROM
-		typequestion
-			INNER JOIN
-		question USING (typeID)
-	GROUP BY typeID
-	HAVING COUNT(questionID) = (SELECT 
-			MAX(a)
-		FROM
-			(SELECT 
-				COUNT(questionID) a
-			FROM
-				question
-			INNER JOIN typequestion USING (typeID)
-			GROUP BY typeID) AS bangphu);
-END$$
-DELIMITER ;
-SET @x=0;
-CALL cau4(@x);
-SELECT @x;
-
-##Câu 5
-DROP PROCEDURE IF EXISTS cau5;
-DELIMITER $$
-CREATE PROCEDURE cau5 (IN id_type INT UNSIGNED)
-BEGIN
-	 SELECT 
-		typename
-	FROM
-		typequestion
-	WHERE
-		typeID = id_type;
- END$$
- DELIMITER ;
- CALL cau5(2);
- 
-##Câu 6
-DROP PROCEDURE IF EXISTS cau6;
-DELIMITER $$
-CREATE PROCEDURE cau6(IN nhap_chuoi VARCHAR(20))
-BEGIN
- SELECT groupname AS result FROM `group` WHERE groupname LIKE CONCAT('%',nhap_chuoi,'%') UNION ALL
- SELECT username AS result FROM `account` WHERE username LIKE CONCAT('%',nhap_chuoi,'%');
-END$$
-DELIMITER ;
-CALL cau6('group');
-
-##Câu 7
-DROP PROCEDURE IF EXISTS cau7;
-DELIMITER $$
-CREATE PROCEDURE cau7( IN p_fullname VARCHAR(50), IN p_email VARCHAR(50))
-BEGIN
-	DECLARE v_username VARCHAR(50) DEFAULT SUBSTRING_INDEX(p_email,'@',1);
-    DECLARE v_positionID INT UNSIGNED DEFAULT (SELECT positionID a FROM position WHERE positionname='DEV');
-    DECLARE v_departmentID INT UNSIGNED DEFAULT (SELECT departmentID b FROM department WHERE departmentname='waiting department');
-    DECLARE v_createdate DATE DEFAULT CURDATE();
-    INSERT INTO `account` VALUES (accountID, p_email, v_username, p_fullname, v_departmentID, v_positionID, v_createdate);
-    SELECT * FROM `account` WHERE fullname=p_fullname;
-END$$	
-DELIMITER ;
-#CALL cau7('pham minh tuan','phamminhtuan@gmail.com');
-
-##Câu 8
-DROP PROCEDURE IF EXISTS cau8;
-DELIMITER $$
-CREATE PROCEDURE cau8(IN v_type_question ENUM('Essay', 'Multiple-Choice'))
-BEGIN
-	SELECT 
-    questionID, content, typename, LENGTH(content)
-FROM
-    question
-        INNER JOIN
-    typequestion USING (typeID)
-WHERE
-    typename = v_type_question
-        AND LENGTH(content) = (SELECT 
-            MAX(a)
-        FROM
-            (SELECT 
-                LENGTH(content) a
-            FROM
-                question) AS bang3);
-END$$
-DELIMITER ;
-CALL cau8('Multiple-Choice');
-
-##Câu 9 
-DROP PROCEDURE IF EXISTS cau9;
-DELIMITER $$
-CREATE PROCEDURE cau9(IN v_examID INT UNSIGNED)
-BEGIN
-	DELETE FROM exam WHERE examID=v_examID;
-END$$
-DELIMITER ;
-
-##Câu 10
-DROP PROCEDURE IF EXISTS cau10;
-DELIMITER $$
-CREATE PROCEDURE cau10(OUT amount_of_record_deleted INT)
-BEGIN
-DECLARE id_of_exam_created_3year_ago INT UNSIGNED;
-SELECT examID INTO id_of_exam_created_3year_ago FROM exam WHERE YEAR(createdate)=YEAR(NOW())-3;
-#DELETE FROM exam WHERE examID=id_of_exam_created_3year_ago;
-SELECT ROW_COUNT() INTO amount_of_record_deleted;
-END$$
-DELIMITER ;
-SET @amount_record=0;
-CALL cau10(@amount_record);
-SELECT @amount_record;
-
-##Câu 11
-DROP PROCEDURE IF EXISTS cau11;
-DELIMITER $$
-CREATE PROCEDURE cau11(IN v_departmentname VARCHAR(50))
-BEGIN
-DECLARE id_choviec INT;
-SELECT departmentID INTO id_choviec FROM department WHERE departmentname='waiting department';
-#UPDATE `account` SET departmentID= id_choviec WHERE departmentID=(SELECT departmentID FROM department WHERE departmentname=v_departmentname);
-#DELETE FROM department WHERE departmentname=v_departmentname;
-END$$
-DELIMITER ;
-#CALL cau11('kho');
-
-##Câu 12
-DROP PROCEDURE IF EXISTS cau12;
-DELIMITER $$
-CREATE PROCEDURE cau12()
-BEGIN
-	SELECT MONTH(createdate) AS 'Tháng', COUNT(questionID) AS 'Số câu hỏi' FROM question WHERE YEAR(createdate)=YEAR(NOW()) GROUP BY MONTH(createdate);
-END$$
-DELIMITER ;
-CALL cau12();
-
-##Câu 13
-DROP PROCEDURE IF EXISTS cau13;
-DELIMITER $$
-CREATE PROCEDURE cau13()
-BEGIN
-	SELECT six_month_ago.*, COUNT(questionID) AS number_question,
-    CASE 
-		WHEN COUNT(questionID)=0 THEN 'không có câu hỏi nào trong tháng'
-        ELSE ''
-	END AS NOTE
-    FROM(
-		SELECT YEAR(NOW()) AS `YEAR`, MONTH(NOW()) AS `MONTH`
-    UNION
-		SELECT YEAR(DATE_SUB((NOW()), INTERVAL 1 MONTH)) AS `YEAR`, MONTH(DATE_SUB((NOW()), INTERVAL 1 MONTH)) AS `MONTH`
-    UNION
-       SELECT YEAR(DATE_SUB((NOW()), INTERVAL 2 MONTH)) AS `YEAR`, MONTH(DATE_SUB((NOW()), INTERVAL 2 MONTH)) AS `MONTH`
-	UNION
-       SELECT YEAR(DATE_SUB((NOW()), INTERVAL 3 MONTH)) AS `YEAR`, MONTH(DATE_SUB((NOW()), INTERVAL 3 MONTH)) AS `MONTH`
-	UNION
-       SELECT YEAR(DATE_SUB((NOW()), INTERVAL 4 MONTH)) AS `YEAR`, MONTH(DATE_SUB((NOW()), INTERVAL 4 MONTH)) AS `MONTH`
-	UNION
-       SELECT YEAR(DATE_SUB((NOW()), INTERVAL 5 MONTH)) AS `YEAR`, MONTH(DATE_SUB((NOW()), INTERVAL 5 MONTH)) AS `MONTH`
-	UNION
-       SELECT YEAR(DATE_SUB((NOW()), INTERVAL 6 MONTH)) AS `YEAR`, MONTH(DATE_SUB((NOW()), INTERVAL 6 MONTH)) AS `MONTH`
-       ) AS six_month_ago
-    LEFT JOIN question ON six_month_ago.`MONTH`=MONTH(createdate) GROUP BY six_month_ago.`MONTH`;
-END$$
-DELIMITER ;
-CALL cau13();
-
-################################################## TESTING SYSTEM 7 ################################################################
-
-#Câu 1
-DROP TRIGGER IF EXISTS trigger_insert_group;
-DELIMITER $$
-CREATE TRIGGER trigger_insert_group
-BEFORE INSERT ON `group`
-FOR EACH ROW
-BEGIN
-	IF NEW.createdate < DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR) THEN 
-		SIGNAL SQLSTATE '12345'
-        SET MESSAGE_TEXT='cannot add data to Groups with create date 1 year ago';
-	END IF;
-END$$
-DELIMITER ;
-
-#Câu 2
-DROP TRIGGER IF EXISTS trigger_insert_user;
-DELIMITER $$
-CREATE TRIGGER trigger_insert_user
-BEFORE INSERT ON `account`
-FOR EACH ROW
-BEGIN
-	IF NEW.departmentID=(SELECT departmentID FROM department WHERE departmentname='Sale') THEN
-		SIGNAL SQLSTATE '12345'
-        SET MESSAGE_TEXT="Department Sale cannot add more user";
-	END IF;
-END$$
-DELIMITER ;
-
-#Câu 3
-DROP TRIGGER IF EXISTS trigger_5user;
-DELIMITER $$
-CREATE TRIGGER trigger_5user
-BEFORE INSERT ON groupaccount
-FOR EACH ROW
-BEGIN
-	DECLARE amount_user INT;
-    SELECT COUNT(accountID) INTO amount_user FROM groupaccount WHERE groupID=NEW.groupID GROUP BY groupID;
-    IF amount_user > 5 THEN
-		SIGNAL SQLSTATE '12345'
-        SET MESSAGE_TEXT='the number of group members cannot be more than 5';
-	END IF;
-END$$
-DELIMITER ;
-
-#Câu 4
-DROP TRIGGER IF EXISTS trigger_10question;
-DELIMITER $$
-CREATE TRIGGER trigger_10question
-BEFORE INSERT ON examquestion
-FOR EACH ROW
-BEGIN
-	DECLARE amount_question INT;
-    SELECT COUNT(questionID) INTO amount_question FROM examquestion WHERE examID=NEW.examID GROUP BY examID;
-    IF amount_question >10 THEN
-		SIGNAL SQLSTATE '12345'
-        SET MESSAGE_TEXT='the number of question cannot be more than 10';
-	END IF;
-END$$
-DELIMITER ;
-
-#Câu 5
-DROP TRIGGER IF EXISTS cancel_del_account;
-DELIMITER $$
-CREATE TRIGGER cancel_del_account
-BEFORE DELETE ON `account` 
-FOR EACH ROW
-BEGIN
-DECLARE v_accountID INT;
-SELECT accountID INTO v_accountID FROM `account` WHERE email=OLD.email;
-	IF OLD.email= 'admin@gmail.com' THEN 
-		SIGNAL SQLSTATE '12345'
-        SET MESSAGE_TEXT='cannot delete this account';
-	#ELSE 
-		#DELETE FROM `account` WHERE accountID=v_accountID;
-        #DELETE FROM `group` WHERE creatorID=v_accountID;
-        #DELETE FROM exam WHERE creatorID=v_accountID;
-       # DELETE FROM question WHERE creatorID=v_accountID;
-	END IF;
-END$$
-DELIMITER ;
-
-#Câu 6
-DROP TRIGGER IF EXISTS auto_waiting_department;
-DELIMITER $$
-CREATE TRIGGER auto_waiting_department
-BEFORE INSERT ON `account` FOR EACH ROW
-BEGIN
-	IF NEW.departmentID IS NULL THEN SET NEW.departmentID= (SELECT departmentID FROM department WHERE departmentname='waiting department');
-    END IF;
-END$$
-DELIMITER ;
-
-#Câu 7
-DROP TRIGGER IF EXISTS create_answer;
-DELIMITER $$
-CREATE TRIGGER create_answer
-BEFORE INSERT ON answer FOR EACH ROW
-BEGIN
-DECLARE amount_answer INT;
-DECLARE amount_correct_answer INT;
-SELECT COUNT(answerID) AS 'số câu trả lời' INTO amount_answer FROM answer INNER JOIN question USING(questionID) WHERE questionID=NEW.questionID GROUP BY questionID;
-SELECT COUNT(answerID) AS 'số câu trả lời đúng' INTO amount_correct_answer FROM answer INNER JOIN question USING(questionID) WHERE questionID=NEW.questionID AND iscorrect='True' GROUP BY questionID;
-IF amount_answer >4 THEN 
-	SIGNAL SQLSTATE '12345'
-    SET MESSAGE_TEXT='Only a maximum of 4 responses can be created';
-END IF;
-IF amount_correct_answer >2 THEN 
-	SIGNAL SQLSTATE '12345'
-    SET MESSAGE_TEXT='only a maximum of 2 correct answers';
-END IF;
-END$$
-DELIMITER ;
-
-#Câu 8
-ALTER TABLE `account` ADD gender ENUM('M','F','U') DEFAULT 'U';
-DROP TRIGGER IF EXISTS fix_gender_data;
-DELIMITER $$
-CREATE TRIGGER fix_gender_data
-BEFORE INSERT ON `account` FOR EACH ROW
-BEGIN
-	IF NEW.gender='male' THEN SET NEW.gender='M';
-	ELSEIF NEW.gender='female' THEN SET NEW.gender='F';
-	ELSEIF NEW.gender='unknow' THEN SET NEW.gender='U';
-    END IF;
-END$$
-DELIMITER ;
-
-#Câu 9
-DROP TRIGGER IF EXISTS cancel_del_exam;
-DELIMITER $$
-CREATE TRIGGER cancel_del_exam
-BEFORE DELETE ON exam FOR EACH ROW
-BEGIN
-    IF OLD.createdate = DATE_SUB(CURRENT_DATE(), INTERVAL 2 DAY) THEN 
-    SIGNAL SQLSTATE '12345'
-    SET MESSAGE_TEXT='Can not delete the newly created exam 2 days ago';
-    END IF;
-END$$
-DELIMITER ;
-
-#Câu 10
-DROP TRIGGER IF EXISTS update_question;
-DELIMITER $$
-CREATE TRIGGER update_question
-BEFORE UPDATE ON question FOR EACH ROW
-BEGIN
-	DECLARE questionID_update INT;
-    SELECT q.questionID INTO questionID_update FROM question q JOIN examquestion e USING(questionID) WHERE q.questionID = e.questionID GROUP BY questionID;
-    IF OLD.questionID = questionID_update THEN 
-    SIGNAL SQLSTATE '12345'
-    SET MESSAGE_TEXT='cannot update this question bacause it was in an exam';
-    END IF;
-END$$
-DELIMITER ;
-
-DROP TRIGGER IF EXISTS delete_question;
-DELIMITER $$
-CREATE TRIGGER delete_question
-BEFORE DELETE ON question FOR EACH ROW
-BEGIN
-	DECLARE questionID_delete INT;
-    SELECT q.questionID INTO questionID_delete FROM question q JOIN examquestion e USING(questionID) WHERE q.questionID = e.questionID GROUP BY questionID;
-    IF OLD.questionID = questionID_delete THEN 
-    SIGNAL SQLSTATE '12345'
-    SET MESSAGE_TEXT='cannot delete this question bacause it was in an exam';
-    END IF;
-END$$
-DELIMITER ;
-
-SELECT 
-    *,
-    CASE
-        WHEN duration <= 30 THEN 'short time'
-        WHEN duration > 30 AND duration <= 60 THEN 'medium time'
-        ELSE 'long time'
-    END AS type_duration
-FROM exam;
-
-#Câu 13
-SELECT groupID, groupname, COUNT(accountID) AS 'number_user',
-CASE 
-	WHEN COUNT(accountID) <=5 THEN 'few'
-    WHEN 5< COUNT(accountID) <=20 THEN 'normal'
-    ELSE 'higher'
-END AS the_number_user_amount
-FROM groupaccount INNER JOIN `group` USING(groupID) GROUP BY groupID;
-
-#Câu 14
-SELECT departmentID, departmentname, COUNT(accountID) AS 'number_user',
-CASE 
-	WHEN COUNT(accountID) =0 THEN 'không có user'
-    ELSE ''
-END AS note
-FROM department LEFT JOIN `account` USING(departmentID) GROUP BY departmentID;
-
-#deleteDepartment
-DROP PROCEDURE IF EXISTS sp_delete_department;
-DELIMITER $$
-CREATE PROCEDURE sp_delete_department(IN v_departmentID INT)
-BEGIN
-	DELETE FROM department WHERE departmentID = v_departmentID;
-END $$
-DELIMITER ;
+SELECT * FROM `account` WHERE LENGTH(fullname) = (SELECT MAX(LENGTH(fullname)) FROM `account` WHERE departmentID =3) AND departmentID = 3;
+SELECT GroupName FROM `group` WHERE CreateDate < '2019-12-20';
+SELECT questionID FROM answer GROUP BY questionID HAVING COUNT(answerID) >= 4 ;
