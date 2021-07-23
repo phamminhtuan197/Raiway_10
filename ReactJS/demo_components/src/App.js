@@ -5,10 +5,10 @@ import ComponentsTop from "./Components/ComponentsTop";
 function App() {
   return (
     <div className="App">
-      <ComponentsTop />
+      <ComponentsTop heading_panel="-----Components Top-----" />
       <br />
       <br />
-      <ComponentsBottom />
+      <ComponentsBottom message="Wellcome to VTI Academy!" />
     </div>
   );
 }

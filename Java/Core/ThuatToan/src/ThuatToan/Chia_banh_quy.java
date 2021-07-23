@@ -1,5 +1,6 @@
 package ThuatToan;
 
+import java.util.Deque;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -54,8 +55,8 @@ public class Chia_banh_quy {
 						n += mapcookie.get(child[i]);
 					} else if (mapcookie.get(child[i]) >= mapchild.get(child[i])) {
 						n += mapcookie.get(child[i]);
-
 					}
+					
 				}
 			}
 		}
