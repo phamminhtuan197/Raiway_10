@@ -1,17 +1,42 @@
 import React, { Component } from "react";
+import ComponentsTopChild from "./ComponentsTopChild";
 // Tạo ComponentsTop viết theo dạng Class Components, chú ý có phương thức render, nôi dung sẽ return ra 1 react element, để trong 1 thẻ div
 class ComponentsTop extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      click_Number: 0,
+      // click_Number: 0,
+      Input_Name: "",
     };
   }
-  click = () => {
+  // Dem so lan click
+  // click = () => {
+  //   this.setState({
+  //     click_Number: this.state.click_Number + 1,
+  //   });
+  // };
+
+  // gui du lieu khi nhap vao input
+  handleChange = (event) => {
+    let name = event.target.name;
+    let value = event.target.value;
+    console.log(name);
+    console.log(value);
     this.setState({
-      click_Number: this.state.click_Number + 1,
+      [name]: value,
     });
   };
+
+  // xu lis su kien khi click vao nut sentdata
+  // click = () => {
+  //   alert(this.state.Input_Name);
+  // };
+
+  // Gui du lieu tu ComponentsTop den App
+  click = () => {
+    this.props.getData(this.state.Input_Name);
+  };
+
   render() {
     return (
       <div className="row">
@@ -32,6 +57,10 @@ class ComponentsTop extends Component {
                       pattern=""
                       title=""
                       placeholder="Input something here"
+                      // set state va render lai du lieu cho value
+                      name="Input_Name"
+                      value={this.state.Input_Name}
+                      onChange={this.handleChange}
                     />
                   </div>
 
@@ -47,6 +76,13 @@ class ComponentsTop extends Component {
                     </div>
                   </div>
                 </form>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <ComponentsTopChild
+                    dataToTopChild={this.props.dataToTopChild}
+                  />
+                </div>
               </div>
             </div>
           </div>
